@@ -3,11 +3,25 @@ from flask import Flask
 from models import setup_db
 from flask_cors import CORS
 
+'''
+Endpoints:
+
+    GET /actors and /movies
+    DELETE /actors/ and /movies/
+    POST /actors and /movies and
+    PATCH /actors/ and /movies/
+    '''
+
 def create_app(test_config=None):
 
     app = Flask(__name__)
     setup_db(app)
     CORS(app)
+
+    @app.route('/actors', methods=['GET', 'POST', 'DELETE', 'PATCH'])
+    def actors():
+        text = "This is your actors page!!! Yeahhhh!!!!!"
+        return text
 
     @app.route('/')
     def get_greeting():
