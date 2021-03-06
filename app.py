@@ -18,6 +18,11 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+    @app.route('/movies', methods=['GET', 'POST', 'DELETE', 'PATCH'])
+    def movies():
+        text = "Her we go again!!! Anothe awsome endpoint!!!!"
+        return text
+
     @app.route('/actors', methods=['GET', 'POST', 'DELETE', 'PATCH'])
     def actors():
         text = "This is your actors page!!! Yeahhhh!!!!!"
