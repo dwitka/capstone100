@@ -29,7 +29,7 @@ class Actor(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     age = Column(Integer)
-    gender = Column(St  iring)
+    gender = Column(String)
 
     def __init__(self, name, age=00, gender="")
         self.name = name
