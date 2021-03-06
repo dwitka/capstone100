@@ -31,7 +31,7 @@ class Actor(db.Model):
     age = Column(Integer)
     gender = Column(String)
 
-    def __init__(self, name, age=00, gender="")
+    def __init__(self, name, age=00, gender=""):
         self.name = name
         self.age = age
         self.gender = gender
