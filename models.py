@@ -26,10 +26,10 @@ Have title and release year
 class Actor(db.Model):
     __tablename__ = 'Actors'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    age = Column(Integer)
-    gender = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    age = db.Column(db.Integer)
+    gender = db.Column(db.String)
 
     def __init__(self, name, age=00, gender=""):
         self.name = name
@@ -46,9 +46,9 @@ class Actor(db.Model):
 class Movie(db.Model):  
     __tablename__ = 'Movies'
 
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
-    release_date = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    release_date = db.Column(db.String)
 
     def __init__(self, title, release_date=""):
         self.title = title
