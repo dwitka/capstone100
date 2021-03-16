@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from models import setup_db
 from flask_cors import CORS
 
@@ -18,15 +18,20 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        return render_template('login.html')
+
     @app.route('/movies', methods=['GET', 'POST', 'DELETE', 'PATCH'])
     def movies():
-        text = "Here we go again!!! Another awesome endpoint!!!!"
-        return text
+        # text = "Here we go again!!! Another awesome endpoint!!!!"
+        return jsonify({"success": True})
 
     @app.route('/actors', methods=['GET', 'POST', 'DELETE', 'PATCH'])
     def actors():
-        text = "This is your actors page!!! Yeahhhh!!!!!"
-        return text
+        # text = "This is your actors page!!! Yeahhhh!!!!!"
+        return jsonify({"success": True,
+                        "actorsroute": True})
 
     @app.route('/')
     def get_greeting():
