@@ -3,7 +3,7 @@ from flask import Flask, jsonify, render_template
 from models import setup_db
 from flask_cors import CORS
 
-from .auth.auth import AuthError, requires_auth
+from auth.auth import AuthError, requires_auth
 
 '''
 Endpoints:
@@ -21,16 +21,15 @@ def create_app(test_config=None):
     CORS(app)
 
 
-    
-    @app.route('/login', methods=['GET'])
     '''login page should route to Auth0 site and Authorize user.'''
+    @app.route('/login', methods=['GET'])
     def login():
         return render_template('login.html')
 
     
     @app.route('/movies', methods=['GET'])
     def get_movies():
-    '''returns a list of movies'''
+        '''returns a list of movies'''
         movies = Movie.query.all()
         movies_list = []
         count = 0
@@ -102,7 +101,7 @@ def create_app(test_config=None):
 
     @app.route('/actors', methods=['GET'])
     def get_actors():
-    '''returns a list of actors'''
+        '''returns a list of actors'''
         actors = Actor.query.all()
         actors_list = []
         count = 0
