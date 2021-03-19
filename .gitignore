@@ -1,0 +1,5 @@
+.pytest_cache/
+env/
+sh.exe.stackdump
+__pycache__/
+trivia.psql
