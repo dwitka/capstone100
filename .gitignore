@@ -3,3 +3,4 @@ env/
 sh.exe.stackdump
 __pycache__/
 trivia.psql
+newtest.py
