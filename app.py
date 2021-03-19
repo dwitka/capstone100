@@ -1,6 +1,6 @@
 import os
 from flask import Flask, jsonify, render_template
-from models import setup_db
+from models import setup_db, Movie, Actor
 from flask_cors import CORS
 
 from auth.auth import AuthError, requires_auth
@@ -35,7 +35,7 @@ def create_app(test_config=None):
         count = 0
         if len(movies) != 0:
             while count < len(movies):
-                movies_list.append(movies[count])
+                movies_list.append(movies[count].format())
                 count = count + 1
         else:
             pass
