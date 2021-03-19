@@ -3,8 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 import os
 
-database_path = os.environ['DATABASE_URL']
-
+# database_path = os.environ['DATABASE_URL']
+database_path = 'postgresql://postgres:postGres44@localhost:5432/trivia'
 db = SQLAlchemy()
 
 '''
@@ -43,6 +43,17 @@ class Actor(db.Model):
             'age': self.age,
             'gender': self.gender}
 
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
 class Movie(db.Model):  
     __tablename__ = 'Movies'
 
@@ -59,3 +70,16 @@ class Movie(db.Model):
             'id': self.id,
             'title': self.title,
             'release_date': self.release_date}
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+
