@@ -3,6 +3,8 @@ from flask import Flask, jsonify, render_template
 from models import setup_db
 from flask_cors import CORS
 
+from .auth.auth import AuthError, requires_auth
+
 '''
 Endpoints:
 
