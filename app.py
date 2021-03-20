@@ -107,7 +107,7 @@ def create_app(test_config=None):
         count = 0
         if len(actors) != 0:
             while count < len(actors):
-                actors_list.append(actors[count])
+                actors_list.append(actors[count].format())
                 count = count + 1
         else:
             pass
