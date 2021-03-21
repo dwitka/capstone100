@@ -4,15 +4,22 @@
 	</head>
 	<body>
 		<form method="post" action="/movies">
-			<input type="text" name="title" />
-			<input type="submit" value="Create" />
+			<label for="movie title">Movie Title:</label><br>
+			<input type="text" id="movie title" name="title"><br>
+			<label for="release date">Release Date:</label><br>
+			<input type="text" id="release date" name="release_date">
+			<input type="submit" value="Enter Movie" />
 		</form>
 	<body>
-		<ul style="list-style-type:none;">
+		<ul style="list-style-type:none; width:300px;">
         	<li><h4><b>{{ list_header }}</b></h4></li>
 		{#loop through movies and render them in list#}
         	{% for movie in movies %}
-            		<li><a href="#">{{ movie.title }}</a></li>
+		<li>
+			{{ movie.title }}
+			<label style="float:right;">{{ movie.release_date }}</label>
+		</li>
+
         	{% endfor %}
     		</ul>
 	</body>

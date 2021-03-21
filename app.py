@@ -52,10 +52,10 @@ def create_app(test_config=None):
                 'description': 'Do not have permission to add movies.'
             }, 403)
         else:
-            data = request.form.get('title')
-            print(data)
-        if data:
-            movie = Movie(title=data)
+            data_t = request.form.get('title')
+            data_rd = request.form.get('release_date') 
+        if data_t:
+            movie = Movie(title=data_t, release_date=data_rd)
             movie.insert()
         else:
             abort(401)
