@@ -21,16 +21,6 @@ def create_app(test_config=None):
     #CORS(app)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-    @app.after_request
-    def after_request(response):
-        response.headers.add(
-            'Access-Control-Allow-Origin', 'http://localhost:8100')
-        response.headers.add(
-            'Access-Control-Allow-Headers', 'Content-Type, Authorization')
-        response.headers.add(
-            'Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
-    return response
-
     '''login page should route to Auth0 site and Authorize user.'''
     @app.route('/login', methods=['GET'])
     def login():
