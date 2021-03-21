@@ -43,6 +43,7 @@ def create_app(test_config=None):
 
 
     @app.route('/movies', methods=['POST'])
+    @requires_auth(permission='post:movies')
     def add_movies():
         '''creates a new row in the movies table'''
         if not requires_auth(permission='post:movies'):
