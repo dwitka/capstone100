@@ -64,7 +64,6 @@ def get_token_auth_header():
         }, 401)
 
     token = header_info[1]
-    print("token: ", token)
     return token
 
 
@@ -92,7 +91,6 @@ def check_permissions(permission, payload):
             'code': 'permission_is_missing',
             'description': 'permission is expected.'
         }, 403)
-    print("permission: ", permission)
     return True
 
 
@@ -189,4 +187,5 @@ def requires_auth(permission=''):
             return f(payload, *args, **kwargs)
 
         return wrapper
-    return 
+    return requires_auth_decorator
+
