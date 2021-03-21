@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, abort
 from models import setup_db, Movie, Actor
 from flask_cors import CORS
 
@@ -30,8 +30,6 @@ def create_app(test_config=None):
     @app.route('/movies', methods=['GET'])
     def get_movies():
         '''returns a list of movies'''
-        auth = request.headers.get('Authorization')
-        print(auth)
         movies = Movie.query.all()
         movies_list = []
         count = 0
@@ -45,6 +43,7 @@ def create_app(test_config=None):
 
 
     @app.route('/movies', methods=['POST'])
+    #@requires_auth('post:movies')
     def add_movies():
         '''creates a new row in the movies table'''
         if not requires_auth(permission='post:movies'):
@@ -53,9 +52,10 @@ def create_app(test_config=None):
                 'description': 'Do not have permission to add movies.'
             }, 403)
         else:
-            data = request.get_json()
+            data = request.form.get('title')
+            print(data)
         if data:
-            movie = Movie(title=data['title'])
+            movie = Movie(title=data)
             movie.insert()
         else:
             abort(401)
