@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from models import setup_db, Movie, Actor
 from flask_cors import CORS
 
@@ -30,6 +30,8 @@ def create_app(test_config=None):
     @app.route('/movies', methods=['GET'])
     def get_movies():
         '''returns a list of movies'''
+        auth = request.headers.get('Authorization')
+        print(auth)
         movies = Movie.query.all()
         movies_list = []
         count = 0
@@ -39,7 +41,7 @@ def create_app(test_config=None):
                 count = count + 1
         else:
             pass
-        return jsonify({"success": True, "movies": movies_list}), 200
+        return render_template('movies.html', movies=movies_list, list_header="Movies!"), 200
 
 
     @app.route('/movies', methods=['POST'])

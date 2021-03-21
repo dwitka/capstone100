@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>Movies Page</title>
+	</head>
+	<body>
+		<form method="post" action="/movies">
+			<input type="text" name="description" />
+			<input type="submit" value="Create" />
+		</form>
+	<body>
+		<ul style="list-style-type:none;">
+        	<li><h4><b>{{ list_header }}</b></h4></li>
+		{#loop through movies and render them in list#}
+        	{% for movie in movies %}
+            		<li><a href="#">{{ movie.title }}</a></li>
+        	{% endfor %}
+    		</ul>
+	</body>
+</html>
