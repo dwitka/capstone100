@@ -15,8 +15,6 @@ Endpoints:
     '''
 
 def create_app(test_config=None):
-    auth = request.headers.get('Authorization', None)
-    print(auth)
     app = Flask(__name__)
     setup_db(app)
     #CORS(app)
