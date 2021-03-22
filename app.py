@@ -52,17 +52,17 @@ def create_app(test_config=None):
 
     @app.route('/movies', methods=['POST'])
     # @cross_origin(headers=["Content-Type", "Authorization"])
-    # @requires_auth('post:movies')
+    @requires_auth('post:movies')
     def add_movies():
         '''creates a new row in the movies table'''
-        if not requires_auth(permission='post:movies'):
+        '''if not requires_auth(permission='post:movies'):
             raise AuthError({
                 'code': 'invalid_permission',
                 'description': 'Do not have permission to add movies.'
             }, 403)
-        else:
-            data_t = request.form.get('title')
-            data_rd = request.form.get('release_date') 
+        else:'''
+        data_t = request.form.get('title')
+        data_rd = request.form.get('release_date') 
         if data_t:
             movie = Movie(title=data_t, release_date=data_rd)
             movie.insert()
