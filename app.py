@@ -1,7 +1,7 @@
 import os
 from flask import Flask, jsonify, render_template, request, abort
 from models import setup_db, Movie, Actor
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 from auth.auth import AuthError, requires_auth
 
@@ -19,6 +19,15 @@ def create_app(test_config=None):
     setup_db(app)
     #CORS(app)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
+    
+    @app.after_request
+    def after_request(response):
+        response.headers.add(
+            'Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        response.headers.add(
+            'Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
+        return response
+
 
     '''login page should route to Auth0 site and Authorize user.'''
     @app.route('/login', methods=['GET'])
@@ -42,6 +51,8 @@ def create_app(test_config=None):
 
 
     @app.route('/movies', methods=['POST'])
+    # @cross_origin(headers=["Content-Type", "Authorization"])
+    # @requires_auth('post:movies')
     def add_movies():
         '''creates a new row in the movies table'''
         if not requires_auth(permission='post:movies'):
