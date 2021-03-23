@@ -3,6 +3,9 @@ from flask import Flask, jsonify, render_template, request, abort
 from models import setup_db, Movie, Actor
 from flask_cors import CORS, cross_origin
 
+
+from jose import jwt
+
 from auth.auth import AuthError, requires_auth
 
 '''
@@ -25,7 +28,7 @@ def create_app(test_config=None):
         response.headers.add(
             'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')
         response.headers.add(
-            'Access-Control-Allow-Headers', 'Content-Type, Authorization')
+            'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
             'Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
         return response
@@ -38,7 +41,8 @@ def create_app(test_config=None):
 
     
     @app.route('/movies', methods=['GET'])
-    def get_movies():
+    @requires_auth('get:movies')
+    def get_movies(payload):
         '''returns a list of movies'''
         movies = Movie.query.all()
         movies_list = []
@@ -54,8 +58,8 @@ def create_app(test_config=None):
 
     @app.route('/movies', methods=['POST'])
     # @cross_origin(headers=["Content-Type", "Authorization"])
-    # @requires_auth('post:movies')
-    def add_movies():
+    @requires_auth('post:movies')
+    def add_movies(payload):
         '''creates a new row in the movies table'''
         if not requires_auth(permission='post:movies'):
             raise AuthError({
