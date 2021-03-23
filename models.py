@@ -4,7 +4,7 @@ import json
 import os
 
 database_path = os.environ['DATABASE_URL']
-# database_path = 'postgresql://postgres:postGres44@localhost:5432/trivia'
+#database_path = 'postgresql://postgres:postGres44@localhost:5432/trivia'
 db = SQLAlchemy()
 
 '''
