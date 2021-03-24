@@ -1,11 +1,9 @@
 import os
 from flask import Flask, jsonify, render_template, request, abort
 from models import setup_db, Movie, Actor
-from flask_cors import CORS, cross_origin
-
-
-from jose import jwt
-
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exc
 from auth.auth import AuthError, requires_auth
 
 '''
@@ -21,12 +19,12 @@ def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
     #CORS(app)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    CORS(app, resources={"/": {"origins": "*"}})
     
     @app.after_request
     def after_request(response):
         response.headers.add(
-            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')
+            'WWW-Authenticate', 'Basic')
         response.headers.add(
             'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
@@ -41,25 +39,27 @@ def create_app(test_config=None):
 
     
     @app.route('/movies', methods=['GET'])
-    @requires_auth('get:movies')
-    def get_movies(payload):
-        '''returns a list of movies'''
-        movies = Movie.query.all()
-        movies_list = []
-        count = 0
-        if len(movies) != 0:
-            while count < len(movies):
-                movies_list.append(movies[count].format())
-                count = count + 1
-        else:
-            pass
+    #@requires_auth('get:movies')
+    def get_movies():
+        '''returns a list of movies'''      
+        try:
+            movies = Movie.query.all()
+            movies_list = []
+            count = 0
+            if len(movies) != 0:
+                while count < len(movies):
+                    movies_list.append(movies[count].format())
+                    count = count + 1
+            else:
+                pass
+        except Exception:
+            abort(500)
         return render_template('movies.html', movies=movies_list, list_header="Movies!"), 200
-
 
     @app.route('/movies', methods=['POST'])
     # @cross_origin(headers=["Content-Type", "Authorization"])
-    @requires_auth('post:movies')
-    def add_movies(payload):
+    #@requires_auth('post:movies')
+    def add_movies():
         '''creates a new row in the movies table'''
         if not requires_auth(permission='post:movies'):
             raise AuthError({
@@ -68,9 +68,10 @@ def create_app(test_config=None):
             }, 403)
         else:
             data_t = request.form.get('title')
+            print('---------->', data_t)
             data_rd = request.form.get('release_date') 
             data = request.get_json()
-            print(data)
+            print("---------->", data)
         if data_t:
             movie = Movie(title=data_t, release_date=data_rd)
             movie.insert()
@@ -203,16 +204,14 @@ def create_app(test_config=None):
         error handler should conform to general task above
     '''
     @app.errorhandler(AuthError)
-    def autherror(error):
-        return jsonify({
-                        "success": False,
-                        "error": AuthError,
-                        "message": "AuthError"
-                        }), AuthError
+    def auth_error(ex):
+        res = jsonify(ex.error)
+        res.status_code = ex.status_code
+        return res
 
     return app
 
 app = create_app()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
