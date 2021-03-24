@@ -24,7 +24,7 @@ def create_app(test_config=None):
     @app.after_request
     def after_request(response):
         response.headers.add(
-            'WWW-Authenticate', 'Basic')
+            'Access-Control-Allow-Origin', 'http://localhost:5000')
         response.headers.add(
             'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
@@ -70,7 +70,7 @@ def create_app(test_config=None):
             data_t = request.form.get('title')
             print('---------->', data_t)
             data_rd = request.form.get('release_date') 
-            data = request.get_json()
+            data = request.get_json(force=True)
             print("---------->", data)
         if data_t:
             movie = Movie(title=data_t, release_date=data_rd)
