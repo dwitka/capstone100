@@ -41,9 +41,11 @@ def create_app(test_config=None):
     @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies(payload):
-        '''returns a list of movies'''      
+        '''returns a list of movies'''
+        print(payload)
         try:
             movies = Movie.query.all()
+            print(Movies)
             movies_list = []
             count = 0
             if len(movies) != 0:
