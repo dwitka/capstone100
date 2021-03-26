@@ -23,8 +23,8 @@ def create_app(test_config=None):
     
     @app.after_request
     def after_request(response):
-        response.headers.add(
-            'Access-Control-Allow-Origin', 'http://localhost:5000')
+        '''response.headers.add(
+            'Access-Control-Allow-Origin', 'http://localhost:5000')'''
         response.headers.add(
             'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
@@ -39,8 +39,8 @@ def create_app(test_config=None):
 
     
     @app.route('/movies', methods=['GET'])
-    #@requires_auth('get:movies')
-    def get_movies():
+    @requires_auth('get:movies')
+    def get_movies(payload):
         '''returns a list of movies'''      
         try:
             movies = Movie.query.all()
@@ -58,22 +58,24 @@ def create_app(test_config=None):
 
     @app.route('/movies', methods=['POST'])
     # @cross_origin(headers=["Content-Type", "Authorization"])
-    #@requires_auth('post:movies')
-    def add_movies():
+    @requires_auth('post:movies')
+    def add_movies(payload):
         '''creates a new row in the movies table'''
-        if not requires_auth(permission='post:movies'):
+        '''if not requires_auth(permission='post:movies'):
             raise AuthError({
                 'code': 'invalid_permission',
                 'description': 'Do not have permission to add movies.'
             }, 403)
         else:
-            data_t = request.form.get('title')
-            print('---------->', data_t)
-            data_rd = request.form.get('release_date') 
-            data = request.get_json(force=True)
-            print("---------->", data)
-        if data_t:
-            movie = Movie(title=data_t, release_date=data_rd)
+        
+        data_t = request.form.get('title')
+        print('---------->', data_t)
+        data_rd = request.form.get('release_date')
+        '''
+        data = request.get_json()
+        print("---------->", data)
+        if data:
+            movie = Movie(title=data['title'], release_date=data['release_date'])
             movie.insert()
         else:
             abort(401)
