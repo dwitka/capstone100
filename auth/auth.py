@@ -35,8 +35,8 @@ implement get_token_auth_header() method,
 
 '''
 def get_token_auth_header():
-    """Obtains the Access Token from the Authorization Header
-    """
+    Obtains the Access Token from the Authorization Header
+    
     auth = request.headers.get('Authorization', None)
     #auth = request.headers['Authorization']
     print("-----------------------------------------------------", auth)
@@ -91,6 +91,7 @@ implement check_permissions(permission, payload) method
 
 def get_token():
     jwt = os.environ.get('JWT')
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>', jwt)
     return jwt
 
 def check_permissions(permission, payload):
