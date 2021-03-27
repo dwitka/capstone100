@@ -45,7 +45,7 @@ def create_app(test_config=None):
 
     @app.route('/set_jwt')
     def set_jwt():
-        jwt = request.form.get_json()['jwt']
+        jwt = request.form.get('jwt')
         os.environ['JWT'] = jwt
         return redirect(url_for('movies'))
 
