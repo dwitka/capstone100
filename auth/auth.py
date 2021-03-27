@@ -33,11 +33,11 @@ implement get_token_auth_header() method,
     part of the header
 '''
 
-
+'''
 def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
-    auth = request.headers.get('Authorization')
+    auth = request.headers.get('Authorization', None)
     #auth = request.headers['Authorization']
     print("-----------------------------------------------------", auth)
     auth = {
@@ -75,7 +75,7 @@ def get_token_auth_header():
 
     token = header_info[1]
     return token
-
+'''
 
 '''
 implement check_permissions(permission, payload) method
@@ -88,6 +88,10 @@ implement check_permissions(permission, payload) method
     the payload permissions array return true otherwise
 '''
 
+
+def get_token():
+    jwt = os.environ.get('JWT')
+    return jwt
 
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
@@ -188,7 +192,8 @@ def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            token = get_token_auth_header()
+            #token = get_token_auth_header()
+            token = get_token()
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', token)
             try:
                 payload = verify_decode_jwt(token)

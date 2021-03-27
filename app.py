@@ -42,7 +42,14 @@ def create_app(test_config=None):
     def login():
         return render_template('login.html')
 
-    
+
+    @app.route('/set_jwt')
+    def set_jwt():
+        jwt = request.form.get_json()['jwt']
+        os.environ['JWT'] = jwt
+        return redirect(url_for('movies'))
+
+
     @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies(payload):

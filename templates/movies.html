@@ -3,6 +3,33 @@
 		<title>Movies Page</title>
 	</head>
 	<body>
+                <form class="hidden" id="form" method="get" action="/movies">
+                    <input type="text" id="jwt" name="jwt" />
+                </form>
+                
+                <script>
+
+                    function get_token () {
+                        const queryString = window.location.search;
+                        const urlParams = new URLSearchParams(queryString);
+                        const token = urlParams.get('access_token');
+                        console.log('------------->>>>>>>>>TOKEN--->', token);
+                        return token;
+                    };
+                    
+                    function parseJwt (token) {
+                        // https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript
+                        var base64Url = token.split('.')[1];
+                        var base64 = decodeURIComponent(atob(base64Url).split('').map((c)=>{
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                        }).join(''));
+                    
+                        return JSON.parse(base64);
+                    }
+                    document.getElementById('jwt').innerHTML = parseJwt(get_token())
+                    ;
+                </script>
+                
 		<form method="post" action="/movies">
 			<label for="movie title">Movie Title:</label><br>
 			<input type="text" id="movie title" name="title"><br>
@@ -10,7 +37,7 @@
 			<input type="text" id="release date" name="release_date">
 			<input type="submit" value="Enter Movie" />
 		</form>
-	<body>
+	
 		<ul style="list-style-type:none; width:300px;">
         	<li><h4><b>{{ list_header }}</b></h4></li>
 		{#loop through movies and render them in list#}
