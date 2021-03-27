@@ -37,7 +37,7 @@ implement get_token_auth_header() method,
 def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
-    auth = request.headers.get('Authorization', None)
+    auth = request.headers.get('Authorization')
     #auth = request.headers['Authorization']
     print("-----------------------------------------------------", auth)
     auth = {
