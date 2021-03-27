@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, render_template, request, abort
+from flask import Flask, jsonify, render_template, request, abort, redirect, url_for
 from models import setup_db, Movie, Actor
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -30,6 +30,11 @@ def create_app(test_config=None):
         response.headers.add(
             'Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
         return response
+
+
+    @app.route('/')
+    def index():
+        return redirect(url_for('login'))
 
 
     '''login page should route to Auth0 site and Authorize user.'''

@@ -37,9 +37,11 @@ implement get_token_auth_header() method,
 def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
-    auth = request.headers.get('Authorization', None)
+    #auth = request.headers.get('Authorization', None)
+    auth = request.headers['Authorization']
+    print("-----------------------------------------------------", auth)
     auth = {
-            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxOS2pUb1dhVkNTamJaTWxvdFBxWCJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lMTAwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDU3YWQ0NDE0NDZkOTAwNzFmMWJjMWUiLCJhdWQiOiJDYXAxMDAiLCJpYXQiOjE2MTY3OTk4NzEsImV4cCI6MTYxNjgwNzA3MSwiYXpwIjoiNnlSTXduck9KR1BDdmwzam5rR3pXMjVMb3Blc1FhUGEiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.OCsW3l6M5PzZjPISoYCV8TcSe6L0GgNqU-gGYrtdyGSW5OP6rc_Ef9ILddRHcAntG5874zc7ktwNfMbYqk4x51vDXNb1l0aUVsnOn3t45iT_Y0IRGbd2CuJxPOUPe5Ned3goDk5jaggHvgleT-p46E1zOCuzKMDXsAVFDG1sieSZB1PvzSHxoq8BUTaXnp0HsyMJSoMi6P_fm5VX_blWEaLr0DRnh1ZT_DWEU2hrN5btQLVfgyGLw1LeLvLXS3zEXL-6fnKTw1RKixEDcZTgafB53YlL3KRamPi6fOl7nCxZP8Isl1qmDlhGVshRd_i20vWNA873DHOAokBtxl0rNw'
+            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxOS2pUb1dhVkNTamJaTWxvdFBxWCJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lMTAwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDUxMmUzYmQ2OTdmYzAwNjhhYmJhODciLCJhdWQiOiJDYXAxMDAiLCJpYXQiOjE2MTY4MDI1NDAsImV4cCI6MTYxNjgwOTc0MCwiYXpwIjoiNnlSTXduck9KR1BDdmwzam5rR3pXMjVMb3Blc1FhUGEiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.tDThm4eFVXu6p5SubBMKlsG-fb2H4cm8H7vy7rSRho_a0nAuLH5Ph2fAhtKGwx1s_ac2fAxYirYQ7CykUValbjAZ6fxDmsSMCEGbN8A50ecW1AO2XhpvOeC0Hu9m4CCBl3y8Qa4y8aUdfCuEwmXAEygl0iUlbq7JhIiD69cDFa3UYXbFr9DcAbYZRFCNqvS1_n4DUEWFbTO1LbNpWGZPBa4-mhh_tTOuRMJdj5BhRmL-wBZbgopNQZRh7jd1ToDDxljIlwlRkm_wh36QTSg4bTvzawaZOxXhZhLeg52eenzl9Xjb506AQ66OMGChTrhBX58egOUxyX6LVvDeYtuQIA'
         }
     #auth = request.headers['Authorization']
     print("-----------------------------------------------------", auth)
