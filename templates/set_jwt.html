@@ -8,6 +8,30 @@
 		</form>
                 
                 <script>
+		    // POST
+		    fetch('/set_jwt', {
+
+    			// Declare what type of data we're sending
+    			headers: {
+			    'Content-Type': 'application/json'
+    			},
+
+    		    	// Specify the method
+    		    	method: 'POST',
+
+    		    	// A JSON payload
+    		    	body: JSON.stringify({
+        		    "jwt": jwt
+   		   	})
+		    }).then(function (response) { // At this point, Flask has printed our JSON
+    			return response.text();
+		    }).then(function (text) {
+
+    			console.log('POST response: ');
+
+    			// Should be 'OK' if everything was successful
+    			console.log(text);
+		    });
 
                     function get_token () {
                         var myUrl = window.location + '';
