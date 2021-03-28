@@ -13,8 +13,9 @@
                         const url = window.location;
 			console.log('------------->url-------->', url);
                         const urlParams = new URLSearchParams(url);
-			token = new URLSearchParams(url.search).get('access_token');
-                        #const token = urlParams.get('access_token');
+			var access_token = new URLSearchParams(window.location.hash).get('access_token');
+			/*token = new URLSearchParams(url.search).get('access_token');*/
+                        /*const token = urlParams.get('access_token');*/
                         console.log('------------->>>>>>>>>TOKEN--->', token);
                         return token;
                     };
