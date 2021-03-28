@@ -3,9 +3,6 @@
 		<title>Set JWT Page</title>
 	</head>
 	<body>
-		<form method="get" action="/set_jwt">
-			<p id="jwt" name="jwt"></p>
-		</form>
                 
                 <script>
                     function get_token () {
@@ -30,10 +27,10 @@
                     
                         return JSON.parse(base64);
                     }
-                    document.getElementById('jwt').innerHTML = parseJwt(get_token())
+                    var jwt = parseJwt(get_token())
                     ;
 				// POST
-		    const token = document.getElementById('jwt');
+		    const token = jwt;
 		    const jwt = token.value;
 		    fetch('/set_jwt', {
 
