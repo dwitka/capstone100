@@ -28,7 +28,8 @@
                         return JSON.parse(base64);
                     }
                     var jwt = parseJwt(get_token())
-                    ;
+                    console.log('------------->>>>>>>>>var jwt--->', jwt);
+		    ;
 				// POST
 		    const token = jwt;
 		    jwt = token.value;
