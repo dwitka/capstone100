@@ -43,7 +43,7 @@ def create_app(test_config=None):
         return render_template('login.html')
 
 
-    @app.route('/set_jwt')
+    @app.route('/set_jwt', methods=['POST'])
     def set_jwt():
         data = request.get_json()
         jwt = data['jwt']
