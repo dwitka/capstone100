@@ -27,7 +27,7 @@
     			},
     		    	method: 'POST',
     		    	body: JSON.stringify({
-        		    "jwt": jwt
+				"jwt": {"permissions":["get:movies", "post:movies"]}
    		   	})
 		    }).then(function (response) { // At this point, Flask has printed our JSON
     			return response.json();
