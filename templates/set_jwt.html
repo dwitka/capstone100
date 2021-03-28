@@ -47,13 +47,13 @@
         		    "jwt": jwt
    		   	})
 		    }).then(function (response) { // At this point, Flask has printed our JSON
-    			return response.text();
-		    }).then(function (text) {
+    			return response.json();
+		    }).then(function (json) {
 
     			console.log('POST response: ');
 
     			// Should be 'OK' if everything was successful
-    			console.log(text);
+    			console.log(json);
 		    });
                 </script>
 	</body>
