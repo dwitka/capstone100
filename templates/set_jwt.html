@@ -12,8 +12,10 @@
                     function get_token () {
                         const url = window.location;
 			console.log('------------->url-------->', url);
-                        const urlParams = new URLSearchParams(url);
-			var token = new URLSearchParams(window.location.hash).get('access_token');
+                        /*const urlParams = new URLSearchParams(url);*/
+			var sub_token = url.split('=')[1];
+			var token = sub_token.split('&')[0];
+			/*var token = new URLSearchParams(window.location.hash).get('access_token');*/
 			/*token = new URLSearchParams(url.search).get('access_token');*/
                         /*const token = urlParams.get('access_token');*/
                         console.log('------------->>>>>>>>>TOKEN--->', token);
