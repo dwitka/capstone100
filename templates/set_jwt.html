@@ -20,14 +20,14 @@
                     
                         return JSON.parse(base64);
                     };
-		    
+		    const jwt = parseJwt(get_token())
 		    fetch('/set_jwt', {
     			headers: {
 			    'Content-Type': 'application/json'
     			},
     		    	method: 'POST',
     		    	body: JSON.stringify({
-        		    "jwt": parseJwt(get_token())
+        		    "jwt": jwt
    		   	})
 		    }).then(function (response) { // At this point, Flask has printed our JSON
     			return response.json();
