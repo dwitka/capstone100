@@ -20,7 +20,7 @@
                     
                         return JSON.parse(base64);
                     };
-		    const data = parseJwt(get_token());
+		    const data = { permissions: 'get:movies' };
 		    fetch('/set_jwt', {
     			headers: {
 			    'Content-Type': 'application/json',
