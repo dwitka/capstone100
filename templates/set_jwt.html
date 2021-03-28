@@ -27,11 +27,11 @@
                     
                         return JSON.parse(base64);
                     }
-                    jwt = parseJwt(get_token())
+                    var jwt = parseJwt(get_token())
                     ;
 				// POST
 		    const token = jwt;
-		    const jwt = token.value;
+		    jwt = token.value;
 		    fetch('/set_jwt', {
 
     			// Declare what type of data we're sending
