@@ -23,8 +23,8 @@ def create_app(test_config=None):
     
     @app.after_request
     def after_request(response):
-        '''response.headers.add(
-            'Access-Control-Allow-Origin', 'http://localhost:5000')'''
+        response.headers.add(
+            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')
         response.headers.add(
             'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
@@ -46,6 +46,7 @@ def create_app(test_config=None):
     @app.route('/set_jwt', methods=['GET', 'POST'])
     def set_jwt():
         data = request.get_json()
+        print(data)
         jwt = data['jwt']
         os.environ['JWT'] = jwt
         return redirect(url_for('movies'))
