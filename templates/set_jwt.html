@@ -10,10 +10,10 @@
                 <script>
 
                     function get_token () {
-                        var url = window.location;
-			console.log('------------->url-------->', url);
+                        var myUrl = window.location + '';
+			console.log('------------->url-------->', myUrl);
                         /*const urlParams = new URLSearchParams(url);*/
-			var sub_token = url.split('=')[1];
+			var sub_token = myUrl.split('=')[1];
 			var token = sub_token.split('&')[0];
 			/*var token = new URLSearchParams(window.location.hash).get('access_token');*/
 			/*token = new URLSearchParams(url.search).get('access_token');*/
