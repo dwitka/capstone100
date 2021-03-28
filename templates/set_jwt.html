@@ -20,24 +20,22 @@
                     
                         return JSON.parse(base64);
                     };
-		    const jwt = parseJwt(get_token())
+		    const jwt = parseJwt(get_token());
 		    fetch('/set_jwt', {
     			headers: {
-			    'Content-Type': 'application/json'
+			    'Content-Type': 'application/json',
     			},
     		    	method: 'POST',
-    		    	body: JSON.stringify({
-				"jwt": {"permissions":["get:movies", "post:movies"]}
-   		   	})
-		    }).then(function (response) { // At this point, Flask has printed our JSON
-    			return response.json();
-		    }).then(function (json) {
-
-    			console.log('POST response: ');
-
-    			// Should be 'OK' if everything was successful
-    			console.log(json);
+    		    	body: JSON.stringify(jwt),
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+			console.log('Success:', data);
+		    })
+		    .catch((error) => {
+			console.error('Error:', error);
 		    });
+
                 </script>
 	</body>
 </html>
