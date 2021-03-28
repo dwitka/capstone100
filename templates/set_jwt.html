@@ -3,9 +3,9 @@
 		<title>Set JWT Page</title>
 	</head>
 	<body>
-			<form class="hidden" id="form" method="get" action="/set_jwt">
+		<form class="hidden" id="form" method="get" action="/set_jwt">
                     <input type="text" id="jwt" name="jwt" />
-                </form>
+                
                 
                 <script>
 
@@ -30,6 +30,6 @@
                     document.getElementById('jwt').innerHTML = parseJwt(get_token())
                     ;
                 </script>
-                
+		</form>
 	</body>
 </html>
