@@ -47,8 +47,8 @@ def create_app(test_config=None):
     def set_jwt():
         data = request.get_json()
         print(data)
-        jwt = data['jwt']
-        os.environ['JWT'] = jwt
+        permissions = data['permissions']
+        os.environ['PERMISSIONS'] = permissions
         return redirect(url_for('movies'))
 
 
