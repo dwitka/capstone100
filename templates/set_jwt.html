@@ -10,10 +10,11 @@
                 <script>
 
                     function get_token () {
-                        const queryString = window.location.search;
-			console.log('------------->queryString-------->', queryString);
-                        const urlParams = new URLSearchParams(queryString);
-                        const token = urlParams.get('access_token');
+                        const url = window.location;
+			console.log('------------->url-------->', url);
+                        const urlParams = new URLSearchParams(url);
+			token = new URLSearchParams(url.search).get('access_token');
+                        #const token = urlParams.get('access_token');
                         console.log('------------->>>>>>>>>TOKEN--->', token);
                         return token;
                     };
