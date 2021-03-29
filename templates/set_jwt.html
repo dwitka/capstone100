@@ -9,22 +9,6 @@
 		</form>
 		<a href="https://capstone100.herokuapp.com/set_jwt">Continue</a>
                 <script>
-                    function get_token () {
-                        var myUrl = window.location + '';
-			var sub_token = myUrl.split('=')[1];
-			var token = sub_token.split('&')[0];
-                        return token;
-                    };
-                    
-                    function parseJwt (token) {
-                        var base64Url = token.split('.')[1];
-                        var base64 = decodeURIComponent(atob(base64Url).split('').map((c)=>{
-                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                        }).join(''));
-                    
-                        return JSON.parse(base64);
-                    };
-		    /*const data = parseJwt(get_token);*/
 		    document.getElementById('form').onSubmit = function(e) {
 			e.preventDefault();
 
