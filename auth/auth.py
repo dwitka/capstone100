@@ -35,7 +35,7 @@ implement get_token_auth_header() method,
 '''
 
 
-'''def get_token_auth_header():
+def get_token_auth_header():
     Obtains the Access Token from the Authorization Header
     
     auth = request.headers.get('Authorization', None)
@@ -75,7 +75,7 @@ implement get_token_auth_header() method,
         }, 401)
 
     token = header_info[1]
-    return token'''
+    return token
 
 
 '''
@@ -88,12 +88,6 @@ implement check_permissions(permission, payload) method
     it should raise an AuthError if the requested permission string is not in
     the payload permissions array return true otherwise
 '''
-
-
-def get_token():
-    jwt = os.environ.get('JWT')
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>JWT', jwt)
-    return jwt
 
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
@@ -194,8 +188,7 @@ def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            #token = get_token_auth_header()
-            token = get_token()
+            token = get_token_auth_header()
             print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>TOKEN', token)
             try:
                 payload = verify_decode_jwt(token)

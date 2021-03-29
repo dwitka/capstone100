@@ -43,21 +43,6 @@ def create_app(test_config=None):
         return render_template('login.html')
     
 
-    @app.route('/set_jwt', methods=['GET'])
-    def set_jwt():
-        return render_template('set_jwt.html')
-
-
-    @app.route('/set_jwt', methods=['POST'])
-    def post_jwt():
-        jwt = request.form.get('jwt')
-        os.environ['JWT'] = jwt
-        if os.environ.get('JWT') == None:
-            return render_template('set_jwt.html')
-        else:
-            return redirect(url_for('get_movies'))
-
-
     @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies(payload):
@@ -144,14 +129,6 @@ def create_app(test_config=None):
             pass
         return jsonify({"success": True, "actors": actors_list}), 200
 
-
-
-    @app.route('/')
-    def get_greeting():
-        # excited = os.environ['EXCITED']
-        # greeting = "Hello" 
-        # if excited == 'true': greeting = greeting + "!!!!!"
-        return jsonify({"success": True})
 
     @app.route('/coolkids')
     def be_cool():
