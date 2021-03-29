@@ -56,7 +56,7 @@ def create_app(test_config=None):
     def set_jwt():
         return render_template('set_jwt.html')
 
-    @app.route('/set_jwt', methods['POST'])
+    @app.route('/set_jwt', methods=['POST'])
     def setjwt():
         data = request.form.get('jwt')
         print("---------------------------------->DATA", data)
