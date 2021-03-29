@@ -52,10 +52,10 @@ def create_app(test_config=None):
     def post_jwt():
         jwt = request.form.get('jwt')
         os.environ['JWT'] = jwt
-        return redirect(url_for('get_movies'))
+        return jsonify({"success": True})
 
     def reset_jwt():
-        os.environ['JWT'] = "reset"
+        os.environ['JWT'] = None
         return True
 
     @app.route('/movies', methods=['GET'])
