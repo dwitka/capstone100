@@ -23,8 +23,8 @@ def create_app(test_config=None):
     
     @app.after_request
     def after_request(response):
-        response.headers.add(
-            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')
+        '''response.headers.add(
+            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')'''
         response.headers.add(
             'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
@@ -45,6 +45,7 @@ def create_app(test_config=None):
 
     @app.route('/set_jwt', methods=['GET'])
     def set_jwt():
+        os.environ['JWT'] = ""
         return render_template('set_jwt.html')
         
 
