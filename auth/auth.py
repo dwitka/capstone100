@@ -92,7 +92,7 @@ implement check_permissions(permission, payload) method
 
 def get_token():
     jwt = os.environ.get('JWT')
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>', jwt)
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>JWT', jwt)
     return jwt
 
 def check_permissions(permission, payload):
@@ -196,12 +196,12 @@ def requires_auth(permission=''):
         def wrapper(*args, **kwargs):
             #token = get_token_auth_header()
             token = get_token()
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', token)
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>TOKEN', token)
             try:
                 payload = verify_decode_jwt(token)
-                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', payload)
+                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PAYLOAD', payload)
                 check_permissions(permission, payload)
-                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', permission)
+                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PERMISSION', permission)
             except Exception:
                 abort(401)
             return f(payload, *args, **kwargs)
