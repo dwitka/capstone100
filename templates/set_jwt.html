@@ -3,7 +3,10 @@
 		<title>Set JWT Page</title>
 	</head>
 	<body>
-                
+		<form id='form'>
+			<input type="text" id="permissions" name="permissions"/>
+			<input type="submit" value="Continue"/>
+		</form>
                 <script>
                     function get_token () {
                         var myUrl = window.location + '';
@@ -20,22 +23,27 @@
                     
                         return JSON.parse(base64);
                     };
-		    const data = parseJwt(get_token);
+		    /*const data = parseJwt(get_token);*/
+		    document.getElementById('form').onSubmit = function(e) {
+			e.preventDefault();
+
 		    fetch('https://capstone100.herokuapp.com/set_jwt', {
     			method: 'POST',
 			headers: {
 			    'Content-Type': 'application/json'
     			},
-    		    	body: JSON.stringify(data)
+    		    	body: JSON.stringify({
+			    'permissions': document.getElementById('permissions').value
+			})
 		    })
 		    .then(response => response.json())
-		    .then(data => {
-			console.log('Success:', data);
+		    .then(jsonResponse => {
+			console.log('Success:', jsonResponse);
 		    })
 		    .catch((error) => {
 			console.error('Error:', error);
 		    });
-
+		    }
                 </script>
 	</body>
 </html>
