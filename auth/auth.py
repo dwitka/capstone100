@@ -200,11 +200,12 @@ def requires_auth(permission=''):
             try:
                 payload = verify_decode_jwt(token)
                 print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PAYLOAD', payload)
-                check_permissions(permission, payload)
-                print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PERMISSION', permission)
+                if check_permissions(permission, payload):
+                    return f(payload, *args, **kwargs)
+                else:
+                    abort(403)
             except Exception:
                 abort(401)
-            return f(payload, *args, **kwargs)
 
         return wrapper
     return requires_auth_decorator
