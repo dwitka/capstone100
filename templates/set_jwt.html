@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		<form id='form'>
-			<input type="text" id="permissions" name="permissions"/>
+			<input type="text" id="token" name="token"/>
 			<input type="submit" value="Continue"/>
 		</form>
                 <script>
@@ -27,13 +27,13 @@
 		    document.getElementById('form').onSubmit = function(e) {
 			e.preventDefault();
 
-		    fetch('/set_jwt', {
+		    fetch('/render_page', {
     			method: 'POST',
 			headers: {
 			    'Content-Type': 'application/json'
     			},
     		    	body: JSON.stringify({
-			    'permissions': document.getElementById('permissions').value
+			    'jwt': document.getElementById('token').value
 			})
 		    })
 		    .then(response => response.json())
