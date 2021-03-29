@@ -84,7 +84,7 @@ def create_app(test_config=None):
             movie = Movie(title=data_t, release_date=data_rd)
             movie.insert()
         else:
-            abort(401)
+            abort(403)
         return jsonify({"success": True,
                         "movies": [movie.format()]}), 200
 
