@@ -49,7 +49,7 @@ def create_app(test_config=None):
         print(data)
         permissions = data['permissions']
         os.environ['PERMISSIONS'] = permissions
-        return redirect(url_for('movies'))
+        return render_template('set_jwt.html')
 
 
     @app.route('/movies', methods=['GET'])
