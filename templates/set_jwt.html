@@ -27,7 +27,7 @@
 		    document.getElementById('form').onSubmit = function(e) {
 			e.preventDefault();
 
-		    fetch('https://capstone100.herokuapp.com/set_jwt', {
+		    fetch('/set_jwt', {
     			method: 'POST',
 			headers: {
 			    'Content-Type': 'application/json'
