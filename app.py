@@ -45,16 +45,18 @@ def create_app(test_config=None):
 
     @app.route('/set_jwt', methods=['GET'])
     def set_jwt():
+        reset_jwt()
         return render_template('set_jwt.html')
-        
 
     @app.route('/set_jwt', methods=['POST'])
     def post_jwt():
-        os.environ['JWT'] = "reset"
         jwt = request.form.get('jwt')
         os.environ['JWT'] = jwt
         return redirect(url_for('get_movies'))
 
+    def reset_jwt():
+        os.environ['JWT'] = "reset"
+        return True
 
     @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
