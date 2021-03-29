@@ -52,17 +52,24 @@ def create_app(test_config=None):
         return redirect(url_for('get_movies'))
     
 
-    @app.route('/set_jwt', methods=['GET'])
+    @app.route('/set_jwt', methods=['GET', 'POST'])
     def set_jwt():
-        return render_template('set_jwt.html')
+        if request.form.get('jwt') == None:
+            return render_template('set_jwt.html')
+        else:
+            data = request.form.get('jwt')
+            print("---------------------------------->DATA", data)
+            jwt = data['jwt']
+            os.environ['JWT'] = jwt
+            return redirect(url_for('get_movies'))
 
-    @app.route('/set_jwt', methods=['POST'])
+    '''@app.route('/set_jwt', methods=['POST'])
     def setjwt():
         data = request.form.get('jwt')
         print("---------------------------------->DATA", data)
         jwt = data['jwt']
         os.environ['JWT'] = jwt
-        return redirect(url_for('get_movies'))
+        return redirect(url_for('get_movies'))'''
 
 
     @app.route('/movies', methods=['GET'])
