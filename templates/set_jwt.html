@@ -22,7 +22,7 @@
                     };
 		    const data = parseJwt(get_token);
 		    fetch('https://capstone100.herokuapp.com/set_jwt', {
-    			method: 'POST'
+    			method: 'POST',
 			headers: {
 			    'Content-Type': 'application/json'
     			},
