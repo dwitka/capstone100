@@ -46,7 +46,7 @@ def create_app(test_config=None):
     @app.route('/render_page', methods=['GET', 'POST'])
     def render_page():
         data = request.get_json()
-        print(---------------------------------->data)
+        print("---------------------------------->", data)
         jwt = data['jwt']
         os.environ['JWT'] = jwt 
         return redirect(url_for('get_movies'))
