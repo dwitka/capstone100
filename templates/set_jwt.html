@@ -4,31 +4,8 @@
 	</head>
 	<body>
 		<form id='form'>
-			<input type="text" id="token" name="token"/>
+			<input type="text" id="jwt" name="jwt"/>
 			<input type="submit" value="Add Token"/>
 		</form>
-		<a href="https://capstone100.herokuapp.com/set_jwt">Continue</a>
-                <script>
-		    document.getElementById('form').onSubmit = function(e) {
-			e.preventDefault();
-
-		    fetch('/set_jwt', {
-    			method: 'POST',
-			headers: {
-			    'Content-Type': 'application/json'
-    			},
-    		    	body: JSON.stringify({
-			    'jwt': document.getElementById('token').value
-			})
-		    })
-		    .then(response => response.json())
-		    .then(jsonResponse => {
-			console.log('Success:', jsonResponse);
-		    })
-		    .catch((error) => {
-			console.error('Error:', error);
-		    });
-		    }
-                </script>
 	</body>
 </html>
