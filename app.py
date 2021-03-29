@@ -50,12 +50,12 @@ def create_app(test_config=None):
 
     @app.route('/set_jwt', methods=['GET', 'POST'])
     def set_jwt():
-        render_page()
+        #render_page()
         #data = request.get_json()
         #print(data)
         #permissions = data['permissions']
         #os.environ['PERMISSIONS'] = permissions
-        return redirect(url_for('get_movies'))
+        return render_template('set_jwt.html')
 
 
     @app.route('/movies', methods=['GET'])
