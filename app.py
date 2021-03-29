@@ -45,6 +45,8 @@ def create_app(test_config=None):
 
     @app.route('/set_jwt', methods=['GET'])
     def set_jwt():
+        access_token = request.args.get('access_token')
+        print('**********************access_token ', access_token)
         return render_template('set_jwt.html')
 
 
