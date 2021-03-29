@@ -52,6 +52,7 @@ def create_app(test_config=None):
     def post_jwt():
         jwt = request.form.get('jwt')
         os.environ['JWT'] = jwt
+        print('--------------->>>JWT', os.environ.get('JWT'))
         return redirect(url_for('get_movies'))
 
 
