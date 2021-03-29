@@ -1,3 +1,4 @@
+import os
 import json
 from flask import request, _request_ctx_stack, abort
 from functools import wraps
@@ -33,8 +34,8 @@ implement get_token_auth_header() method,
     part of the header
 '''
 
-'''
-def get_token_auth_header():
+
+'''def get_token_auth_header():
     Obtains the Access Token from the Authorization Header
     
     auth = request.headers.get('Authorization', None)
@@ -74,8 +75,8 @@ def get_token_auth_header():
         }, 401)
 
     token = header_info[1]
-    return token
-'''
+    return token'''
+
 
 '''
 implement check_permissions(permission, payload) method
