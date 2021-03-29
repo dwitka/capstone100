@@ -55,7 +55,7 @@ def create_app(test_config=None):
         #print(data)
         #permissions = data['permissions']
         #os.environ['PERMISSIONS'] = permissions
-        return redirect(url_for('movies'))
+        return redirect(url_for('get_movies'))
 
 
     @app.route('/movies', methods=['GET'])
