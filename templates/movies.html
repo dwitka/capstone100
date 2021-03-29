@@ -18,10 +18,27 @@
 		<li>
 			{{ movie.title }}
 			<label style="float:right;">{{ movie.release_date }}</label>
-			<button class="delete-button" data_id="{{movie.id}}">Delete</button>
+			<button style="float:right;" class="delete-button" data_id="{{movie.id}}">Delete</button>
 		</li>
 
         	{% endfor %}
     		</ul>
+		<script>
+			const deleteBtns = document.querySelectorAll('.delete-button');
+			for (let i = 0; i < deleteBtns.length; i++) {
+			    const btn = deleteBtns[i];
+        		    btn.onclick = function(e) {
+          			const movieId = e.target.dataset['id'];
+          			fetch('/movies/' + movieId, {
+            			    method: 'DELETE'
+          			})
+          			.then(function() {
+            			    const item = e.target.parentElement;
+            			    item.remove();
+          			})
+        		    }
+      			}
+
+		</script>
 	</body>
 </html>
