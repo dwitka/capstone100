@@ -41,15 +41,6 @@ def create_app(test_config=None):
     @app.route('/login', methods=['GET'])
     def login():
         return render_template('login.html')
-
-
-    @app.route('/render_page', methods=['GET', 'POST'])
-    def render_page():
-        data = request.data()
-        print("---------------------------------->DATA", data)
-        jwt = data['jwt']
-        os.environ['JWT'] = jwt 
-        return redirect(url_for('get_movies'))
     
 
     @app.route('/set_jwt', methods=['GET'])
@@ -85,23 +76,11 @@ def create_app(test_config=None):
         return render_template('movies.html', movies=movies_list, list_header="Movies!"), 200
 
     @app.route('/movies', methods=['POST'])
-    # @cross_origin(headers=["Content-Type", "Authorization"])
     @requires_auth('post:movies')
     def add_movies(payload):
         '''creates a new row in the movies table'''
-        '''if not requires_auth(permission='post:movies'):
-            raise AuthError({
-                'code': 'invalid_permission',
-                'description': 'Do not have permission to add movies.'
-            }, 403)
-        else:
-        '''
         data_t = request.form.get('title')
-        print('---------->', data_t)
         data_rd = request.form.get('release_date')
-        
-        #data = request.get_json()
-        print("---------->", data_rd)
         if data_t:
             movie = Movie(title=data_t, release_date=data_rd)
             movie.insert()
