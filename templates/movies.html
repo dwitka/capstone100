@@ -18,6 +18,7 @@
 		<li>
 			{{ movie.title }}
 			<label style="float:right;">{{ movie.release_date }}</label>
+			<button class="delete-button" data_id="{{movie.id}}">Delete</button>
 		</li>
 
         	{% endfor %}
