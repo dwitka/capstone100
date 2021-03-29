@@ -55,7 +55,7 @@ def create_app(test_config=None):
         return jsonify({"success": True})
 
     def reset_jwt():
-        os.environ['JWT'] = None
+        os.environ['JWT'] = "reset"
         return True
 
     @app.route('/movies', methods=['GET'])
