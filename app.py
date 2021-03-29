@@ -45,7 +45,6 @@ def create_app(test_config=None):
 
     @app.route('/set_jwt', methods=['GET'])
     def set_jwt():
-        os.environ['JWT'] = ""
         return render_template('set_jwt.html')
         
 
