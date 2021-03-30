@@ -28,7 +28,7 @@
 			for (let i = 0; i < deleteBtns.length; i++) {
 			    const btn = deleteBtns[i];
         		    btn.onclick = function(e) {
-          			const movieId = e.target.dataset['data_id'];
+          			const movieId = e.target.dataset['movie.id'];
           			fetch('/movies/' + movieId, {
             			    method: 'DELETE'
           			})
