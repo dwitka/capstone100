@@ -76,21 +76,18 @@ def create_app(test_config=None):
                         "movies": [movie.format()]}), 200
 
 
-    @app.route('/movies/<id>', methods=['PATCH'])
-    def edit_title(id):
+    @app.route('/movies/<edit_id>', methods=['PATCH'])
+    @requires_auth('patch:movies')
+    def edit_movies(payload, edit_id):
         '''changes the name of the movie'''
-        if not requires_auth(permission='patch:movies'):
-            raise AuthError({
-                'code': 'invalid_permission',
-                'description': 'Do not have permission to edit.'
-            }, 403)
-        movie = Movie.query.filter_by(id=id).one_or_none()
+        movie = Movie.query.get(edit_id)
         if not movie:
             abort(401)
         else:
             try:
-                data = request.get_json()
-                new_title = data['title']
+                new_title = request.form.get('edit_title')
+                new_release_date = request.form.get('edit_release_date')
+                movie.release_date = new_release_date
                 movie.title = new_title
                 movie.update()
             except Exception:
@@ -102,11 +99,6 @@ def create_app(test_config=None):
     @requires_auth('delete:movies')
     def delete_movies(payload, movie_id):
         '''deletes a movie'''
-        '''if not requires_auth(permission='delete:movies'):
-            raise AuthError({
-                'code': 'invalid_permission',
-                'description': 'permission to delete not granted.'
-            }, 403)'''
         movie = Movie.query.get(movie_id)
         if not movie:
             abort(401)
