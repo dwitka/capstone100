@@ -98,16 +98,16 @@ def create_app(test_config=None):
         return jsonify({"success": True, "movies": [movie.format()]}), 200
 
 
-    @app.route('/movies/<id>/deleted', methods=['DELETE'])
+    @app.route('/movies/<movie_id>/deleted', methods=['DELETE'])
     @requires_auth('delete:movies')
-    def delete_movies(id):
+    def delete_movies(movie_id):
         '''deletes a movie'''
         '''if not requires_auth(permission='delete:movies'):
             raise AuthError({
                 'code': 'invalid_permission',
                 'description': 'permission to delete not granted.'
             }, 403)'''
-        movie = Movie.query.filter_by(id=id).one_or_none()
+        movie = Movie.query.filter_by(id=movie_id).one_or_none()
         if not movie:
             abort(401)
         else:
