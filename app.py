@@ -100,7 +100,7 @@ def create_app(test_config=None):
 
     @app.route('/movies/<id>', methods=['DELETE'])
     @requires_auth('delete:movies')
-    def delete_movies(payload, id):
+    def delete_movies(id):
         '''deletes a movie'''
         '''if not requires_auth(permission='delete:movies'):
             raise AuthError({
