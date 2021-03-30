@@ -100,7 +100,7 @@ def create_app(test_config=None):
 
     @app.route('/movies/<movie_id>/deleted', methods=['DELETE'])
     @requires_auth('delete:movies')
-    def delete_movies(movie_id):
+    def delete_movies(payload, movie_id):
         '''deletes a movie'''
         '''if not requires_auth(permission='delete:movies'):
             raise AuthError({
@@ -108,7 +108,6 @@ def create_app(test_config=None):
                 'description': 'permission to delete not granted.'
             }, 403)'''
         movie = Movie.query.get(movie_id)
-        print(">>>>>>>>>>>>>>>>>>Movie ID", movie.id)
         if not movie:
             abort(401)
         else:
