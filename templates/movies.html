@@ -11,13 +11,14 @@
 			<input type="submit" value="Enter Movie" />
 		</form>
 	
-		<ul style="list-style-type:none; width:300px;">
+		<ul style="list-style-type:none; width:350px; font-size:20px;">
         	<li><h4><b>{{ list_header }}</b></h4></li>
 		{#loop through movies and render them in list#}
         	{% for movie in movies %}
 		<li>
 			{{ movie.title }}
 			<label>{{ movie.release_date }}</label>
+			<button style="cursor:pointer;" class="edit-button" data-id="{{ movie.id }}">Edit</button> 
 			<button style="float:right;" class="delete-button" data-id="{{ movie.id }}">&cross;</button>
 		</li>
 
@@ -38,6 +39,20 @@
           			})
         		    }
       			}
+			const editBtns = document.querySelectorAll('.edit-button');
+                        for (let i = 0; i < editBtns.length; i++) {
+                            const btn = editBtns[i];
+                            btn.onclick = function(e) {
+                                const movieId = e.target.getAttribute("data-id");
+                                fetch('/movies/' + movieId, {
+                                    method: 'PATCH'
+                                })
+                                .then(function() {
+                                    const item = e.target.parentElement;
+                                    console.log(item);
+                                })
+                            }
+                        }
 
 		</script>
 	</body>
