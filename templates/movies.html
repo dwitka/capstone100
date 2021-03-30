@@ -30,7 +30,7 @@
         		    btn.onclick = function(e) {
           			const movieId = e.target.dataset['id'];
           			fetch('/movies/' + movieId + '/deleted', {
-            			    method: 'DELETE'
+            			    methods: 'DELETE'
           			})
           			.then(function() {
             			    const item = e.target.parentElement;
