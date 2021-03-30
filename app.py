@@ -98,7 +98,7 @@ def create_app(test_config=None):
         return jsonify({"success": True, "movies": [movie.format()]}), 200
 
 
-    @app.route('/movies/<id>', methods=['DELETE'])
+    @app.route('/movies/<id>/deleted', methods=['DELETE'])
     @requires_auth('delete:movies')
     def delete_movies(id):
         '''deletes a movie'''
