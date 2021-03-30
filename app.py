@@ -107,7 +107,7 @@ def create_app(test_config=None):
                 'code': 'invalid_permission',
                 'description': 'permission to delete not granted.'
             }, 403)'''
-        movie = Movie.query.filter_by(id=movie_id).one_or_none()
+        movie = Movie.query.get(movie_id)
         print(">>>>>>>>>>>>>>>>>>Movie ID", movie.id)
         if not movie:
             abort(401)
