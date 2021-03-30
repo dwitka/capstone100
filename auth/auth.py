@@ -39,15 +39,9 @@ def get_token_auth_header():
     '''Obtains the Access Token from the Authorization Header'''
     
     auth = request.headers.get('Authorization', None)
-    #auth = request.headers['Authorization']
-    print("-----------------------------------------------------", auth)
     auth = {
-            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxOS2pUb1dhVkNTamJaTWxvdFBxWCJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lMTAwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDUxMmUzYmQ2OTdmYzAwNjhhYmJhODciLCJhdWQiOiJDYXAxMDAiLCJpYXQiOjE2MTcwNzA3NDgsImV4cCI6MTYxNzA3Nzk0OCwiYXpwIjoiNnlSTXduck9KR1BDdmwzam5rR3pXMjVMb3Blc1FhUGEiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.iz4U0L9UYg4Gz7cV5I27TSATooyHWxZPmuK48k54AurTh9a3gF0CkLvj8VuxJPUAXcQffK2JXfkVZaKlY_E8A8j_afOUT7DZgjnYAE-z_E8RhGX4iLI6SxOwMQKDCn_Rl4Zf9ywJvtKVPI5vsYrcduJFfv-3DTbWRTLCJMOxZKT9UEP4P_g4m2o73w_8-Snq8kJ3q-p29myHtHMGvuECeayDq8jrPM_UH6sYwzKLYd0YzhHrx337KuvQj1BWQRV_0zro_3XBFB-LgRL6b2wOqTKRrZIojp_mT_P9NtJJIlLEyDGudQZFq82ewLJs_pxqwto16V5rzs8HSnqI0_sTpw'
+            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxOS2pUb1dhVkNTamJaTWxvdFBxWCJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lMTAwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDUxMmUzYmQ2OTdmYzAwNjhhYmJhODciLCJhdWQiOiJDYXAxMDAiLCJpYXQiOjE2MTcxMDYzNDMsImV4cCI6MTYxNzExMzU0MywiYXpwIjoiNnlSTXduck9KR1BDdmwzam5rR3pXMjVMb3Blc1FhUGEiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.V7a6b_v9Rf_YuNwqysHgob7msFVdqn1tMeNzwWPWr3hc3rhS7ulBzTRREcgcCV_0J3MCHk2VMQr9PXNkU72d1TiURmBPSrWgTAMNvNNbDUYSW_QngIGQGjuBG1fdeVh3Ys-mu7iVSVw9TJt77NUizOp-avaPsqz4TRohwkjkqW3kr6LPXSWRxZt31_G6lICGC5v0QZwdYvjxKdbJz4TMnl-l-zTpFyd9w1mCReNpmCfSPREHSkiB_9R2JPArO-BjF5r-5xAyXGOWAswp0pk-ida_outIq1xtFvuNS4TfgDL9fQIYF4NHS5T_hut88K7D4KvUyyviYIhvFCQmL-YBEQ'
         }
-    #auth = request.headers['Authorization']
-    print("-----------------------------------------------------", auth)
-    print("-----------------------------------------------------", auth)
-    print("-----------------------------------------------------", auth)
 
     if not auth:
         raise AuthError({
@@ -189,7 +183,7 @@ def requires_auth(permission=''):
         @wraps(f)
         def wrapper(*args, **kwargs):
             token = get_token_auth_header()
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>TOKEN', token)
+            #print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>TOKEN', token)
             try:
                 payload = verify_decode_jwt(token)
                 print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PAYLOAD', payload)
