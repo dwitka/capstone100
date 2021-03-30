@@ -11,14 +11,32 @@
 			<input type="submit" value="Enter Movie" />
 		</form>
 	
-		<ul style="list-style-type:none; width:350px; font-size:20px;">
+		<form method="patch" action="/movies">
+                        <label for="movie title">Movie Title:</label><br>
+                        <input type="text" id="movie title" name="edit_title"><br>
+                        <label for="release date">Release Date:</label><br>
+                        <input type="text" id="release date" name="edit_release_date">
+                        <input type="submit" value="Edit Movie" />
+                </form>
+
+
+		<ul style="list-style-type:none; width:350px; font-size:24px;">
         	<li><h4><b>{{ list_header }}</b></h4></li>
 		{#loop through movies and render them in list#}
         	{% for movie in movies %}
 		<li>
 			{{ movie.title }}
 			<label>{{ movie.release_date }}</label>
-			<button style="cursor:pointer;" class="edit-button" data-id="{{ movie.id }}">Edit</button> 
+			<button onclick="TestsFunction()" style="cursor:pointer;" class="edit-button" data-id="{{ movie.id }}">Edit</button>
+			<div id="TestsDiv" style="display:none">
+			<form method="patch" action="/movies">
+                        	<label for="movie title">Edit Title:</label><br>
+                        	<input type="text" id="movie title" name="edit_title"><br>
+                        	<label for="release date">Edit Release Date:</label><br>
+                        	<input type="text" id="release date" name="edit_release_date">
+                        	<input type="submit" value="Edit Movie" />
+                	</form>
+			</div>
 			<button style="float:right;" class="delete-button" data-id="{{ movie.id }}">&cross;</button>
 		</li>
 
@@ -39,6 +57,7 @@
           			})
         		    }
       			}
+			
 			const editBtns = document.querySelectorAll('.edit-button');
                         for (let i = 0; i < editBtns.length; i++) {
                             const btn = editBtns[i];
@@ -53,6 +72,11 @@
                                 })
                             }
                         }
+			
+			function TestsFunction() {
+				var T = document.getElementById("TestsDiv");
+				T.style.display = "block";  // <-- Set it to block
+			}
 
 		</script>
 	</body>
