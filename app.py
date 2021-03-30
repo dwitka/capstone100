@@ -112,7 +112,7 @@ def create_app(test_config=None):
             abort(401)
         else:
             movie.delete()
-            return jsonify({"success": True, "delete": id}), 200
+            return jsonify({"success": True, "delete": movie_id}), 200
 
 
     @app.route('/actors', methods=['GET'])
