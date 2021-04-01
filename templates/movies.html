@@ -19,16 +19,6 @@
 		<li>
 			{{ movie.title }}
 			<label>{{ movie.release_date }}</label>
-			<button onclick="TestsFunction()" style="cursor:pointer;"  data-id="{{ movie.id }}">Edit</button>
-			<div id="TestsDiv" style="display:none">
-			<form method="patch" action="/movies">
-                        	<label for="movie title">Edit Title:</label><br>
-                        	<input type="text" id="movie title" name="edit_title"><br>
-                        	<label for="release date">Edit Release Date:</label><br>
-                        	<input type="text" id="release date" name="edit_release_date">
-				<button style="cursor:pointer;" class="edit-button">Edit Movie</button>
-                	</form>
-			</div>
 			<button style="float:right;" class="delete-button" data-id="{{ movie.id }}">&cross;</button>
 		</li>
 
@@ -49,27 +39,6 @@
           			})
         		    }
       			}
-			
-			const editBtns = document.querySelectorAll('.edit-button');
-                        for (let i = 0; i < editBtns.length; i++) {
-                            const btn = editBtns[i];
-                            btn.onclick = function(e) {
-                                const movieId = e.target.getAttribute("data-id");
-                                fetch('/movies/' + movieId, {
-                                    method: 'PATCH'
-                                })
-                                .then(function() {
-                                    const item = e.target.parentElement;
-                                    console.log(item);
-                                })
-                            }
-                        }
-			
-			function TestsFunction() {
-				var T = document.getElementById("TestsDiv");
-				T.style.display = "block";  // <-- Set it to block
-			}
-
 		</script>
 	</body>
 </html>
