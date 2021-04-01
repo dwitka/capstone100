@@ -108,18 +108,68 @@ def create_app(test_config=None):
 
 
     @app.route('/actors', methods=['GET'])
+    @requires_auth('get:actors')
     def get_actors():
         '''returns a list of actors'''
-        actors = Actor.query.all()
-        actors_list = []
-        count = 0
-        if len(actors) != 0:
-            while count < len(actors):
-                actors_list.append(actors[count].format())
-                count = count + 1
+        try:
+            actors = Actor.query.all()
+            actors_list = []
+            count = 0
+            if len(actors) != 0:
+                while count < len(actors):
+                    actors_list.append(actors[count].format())
+                    count = count + 1
+            else:
+                pass
+        except Exception:
+            abort(500)
+        return render_template('actors.html', actors=actors_list, list_header="Actors!"), 200
+
+
+    @app.route('/actors', methods=['POST'])
+    @requires_auth('post:actors')
+    def add_actors(payload):
+        '''creates a new row in the actors table'''
+        data_n = request.form.get('name')
+        data_a = request.form.get('age')
+        if data_n:
+            actor = Actor(name=data_n, age=data_a)
+            actor.insert()
         else:
-            pass
-        return jsonify({"success": True, "actors": actors_list}), 200
+            abort(403)
+        return jsonify({"success": True,
+                        "actors": [actor.format()]}), 200
+
+
+    @app.route('/actors/<edit_id>', methods=['PATCH'])
+    @requires_auth('patch:actors')
+    def edit_actors(payload, edit_id):
+        '''changes the name of the actor'''
+        actor = Actor.query.get(edit_id)
+        if not actor:
+            abort(401)
+        else:
+            try:
+                new_name = request.form.get('edit_name')
+                new_age = request.form.get('edit_age')
+                actor.name = new_name
+                actor.age = new_age
+                actor.update()
+            except Exception:
+                abort(422)
+        return jsonify({"success": True, "actors": [actor.format()]}), 200
+
+
+    @app.route('/actors/<actor_id>/deleted', methods=['DELETE'])
+    @requires_auth('delete:actors')
+    def delete_actors(payload, actor_id):
+        '''deletes an actor'''
+        actor = Actor.query.get(actor_id)
+        if not actor:
+            abort(401)
+        else:
+            actor.delete()
+            return jsonify({"success": True, "delete": actor_id}), 200
 
 
     @app.route('/coolkids')
