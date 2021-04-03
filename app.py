@@ -134,9 +134,8 @@ def create_app(test_config=None):
     def add_actors(payload):
         '''creates a new row in the actors table'''
         data_n = request.form.get('name')
-        data_a = request.form.get('age')
         if data_n:
-            actor = Actor(name=data_n, age=data_a)
+            actor = Actor(name=data_n, age=00, gender="")
             actor.insert()
         else:
             abort(403)

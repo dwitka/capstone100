@@ -6,8 +6,6 @@
                 <form method="post" action="/actors">
                         <label for="actor name">Actor Name:</label><br>
                         <input type="text" id="actor name" name="name"><br>
-                        <label for="age">Age:</label><br>
-                        <input type="text" id="age" name="age">
                         <input type="submit" value="Enter Actor" />
                 </form>
 
@@ -18,7 +16,6 @@
                 {% for actor in actors %}
                 <li>
                         {{ actor.name }}
-                        <label>{{ actor.age }}</label>
                         <button style="float:right;" class="delete-button" data-id="{{ actor.id }}">&cross;</button>
                 </li>
 
