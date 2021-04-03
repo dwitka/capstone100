@@ -18,8 +18,7 @@ Endpoints:
 def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
-    #CORS(app)
-    CORS(app, resources={"/app/*": {"origins": "*"}})
+    CORS(app, resources={"/": {"origins": "*"}})
     
     @app.after_request
     def after_request(response):
