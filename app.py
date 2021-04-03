@@ -19,12 +19,12 @@ def create_app(test_config=None):
     app = Flask(__name__)
     setup_db(app)
     #CORS(app)
-    CORS(app, resources={"/": {"origins": "*"}})
+    CORS(app, resources={"/app/*": {"origins": "*"}})
     
     @app.after_request
     def after_request(response):
-        '''response.headers.add(
-            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')'''
+        response.headers.add(
+            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')
         response.headers.add(
             'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
@@ -65,13 +65,16 @@ def create_app(test_config=None):
     @requires_auth('post:movies')
     def add_movies(payload):
         '''creates a new row in the movies table'''
-        data_t = request.form.get('title')
-        data_rd = request.form.get('release_date')
-        if data_t:
+        if request.form.get('title'):
+            data_t = request.form.get('title')
+            data_rd = request.form.get('release_date')
             movie = Movie(title=data_t, release_date=data_rd)
-            movie.insert()
+        elif request.json_get():
+            data = request.json_get()
+            movie = Movie(title=data['title'],release_date=data['release_date'])
         else:
             abort(403)
+        movie.insert()
         return jsonify({"success": True,
                         "movies": [movie.format()]}), 200
 
