@@ -22,8 +22,8 @@ def create_app(test_config=None):
     
     @app.after_request
     def after_request(response):
-        response.headers.add(
-            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')
+        '''response.headers.add(
+            'Access-Control-Allow-Origin', 'https://capstone100.herokuapp.com')'''
         response.headers.add(
             'Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add(
@@ -33,13 +33,13 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return redirect(url_for('login'))
+        return redirect(url_for('login')), 200
 
 
     '''login page should route to Auth0 site and Authorize user.'''
     @app.route('/login', methods=['GET'])
     def login():
-        return render_template('login.html')
+        return render_template('login.html'), 200
     
 
     @app.route('/movies', methods=['GET'])
@@ -68,19 +68,15 @@ def create_app(test_config=None):
     @requires_auth('post:movies')
     def add_movies(payload):
         '''creates a new row in the movies table'''
-        if request.form.get('title'):
-            data_t = request.form.get('title')
-            data_rd = request.form.get('release_date')
-            movie = Movie(title=data_t, release_date=data_rd)
-        elif request.json_get():
-            data = request.json_get()
-            movie = Movie(title=data['title'],release_date=data['release_date'])
-        else:
-            abort(403)
-        movie.insert()
-        return jsonify({"success": True,
+        
+        data = request.json_get()
+        movie = Movie(title=data['title'],release_date=data['release_date'])
+        try:
+            movie.insert()
+            return jsonify({"success": True,
                         "movies": [movie.format()]}), 200
-
+        except Exception:
+            abort(500)
 
     @app.route('/movies/<edit_id>', methods=['PATCH'])
     @requires_auth('patch:movies')

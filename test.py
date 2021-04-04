@@ -72,10 +72,10 @@ class EndPointsTestCase(unittest.TestCase):
         auth = {
             'Authorization': "Bearer {}".format(executive_token)
         }
-        res = self.client().delete('/movies/21', headers=auth)
+        res = self.client().delete('/movies/2', headers=auth)
         print(res)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['delete'], 21)
+        self.assertEqual(data['delete'], 2)
