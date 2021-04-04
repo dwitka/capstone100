@@ -58,7 +58,11 @@ def create_app(test_config=None):
                 pass
         except Exception:
             abort(500)
-        return render_template('movies.html', movies=movies_list, list_header="Movies!"), 200
+        return jsonify({
+                'success': True,
+                'movies': movie.format()
+                }), 200
+
 
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')

@@ -43,9 +43,9 @@ def get_token_auth_header():
      #       'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxOS2pUb1dhVkNTamJaTWxvdFBxWCJ9.eyJpc3MiOiJodHRwczovL2NhcHN0b25lMTAwLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2MDUxMmUzYmQ2OTdmYzAwNjhhYmJhODciLCJhdWQiOiJDYXAxMDAiLCJpYXQiOjE2MTcyMzU4NDgsImV4cCI6MTYxNzMyMjI0OCwiYXpwIjoiNnlSTXduck9KR1BDdmwzam5rR3pXMjVMb3Blc1FhUGEiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.ANsOK5iI1PmWPmHy1o9YOmMKsUHQpZQWH3f8aCGTsBOdVrDiB-YhpfHC5JRZ8l4em8Dl1Hn-YEelupgcgs-VRoKVpG5frKN1tj1J0geJpM8r8ev_N-sQaOLAQzMT-LOcEeYaWMm_Ku7ekQ5EvfWb5pnWDpT1MbWhRXO8xKW2yX4GsT4zhFKXv8Ns9YhbtM9PIzXGZvXQg-0JFZT-DO7aQ75QiLvpzx_bWVlkxeCaGqhQn_KeV6mEuALiI4Fz5u6y555m2-_5lWl5vPv0RQZomXAjPlOwJEGFwd1KEEYMiN5spe6oQ7ZFWUHMW_3sa2QPUrRw6xdPpGK1lUPmBPHNwQ'
   #      }
 
-    token = os.environ['EXECUTIVE_TOKEN']
-    bearer = 'Bearer ' + token + ''
-    auth = {'Authorization': bearer}
+    #token = os.environ['EXECUTIVE_TOKEN']
+    #bearer = 'Bearer ' + token + ''
+    #auth = {'Authorization': bearer}
 
     if not auth:
         raise AuthError({
@@ -187,10 +187,8 @@ def requires_auth(permission=''):
         @wraps(f)
         def wrapper(*args, **kwargs):
             token = get_token_auth_header()
-            # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>TOKEN', token)
             try:
                 payload = verify_decode_jwt(token)
-                # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PAYLOAD', payload)
                 if check_permissions(permission, payload):
                     return f(payload, *args, **kwargs)
                 else:

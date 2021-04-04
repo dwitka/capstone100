@@ -4,11 +4,16 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 
 from app import create_app
-from models import setup_db, Actor, Movie
+from models import setup_db, db, Actor, Movie
 
-executive_token = os.environ['EXECUTIVE_TOKEN']
 
-link = 'postgresql://postgres:postGres44@localhost:5432/trivia'
+assistant_token = os.environ.get('ASSISTANT_TOKEN')
+director_token = os.environ.get('DIRECTOR_TOKEN')
+executive_token = os.environ.get('EXECUTIVE_TOKEN')
+
+
+
+link = 'postgresql://postgres:postGres44@localhost:5432/casting'
 
 class EndPointsTestCase(unittest.TestCase):
     """This class represents the trivia test case"""
@@ -33,7 +38,7 @@ class EndPointsTestCase(unittest.TestCase):
         res = self.client().get('/login')
         self.assertEqual(res.status_code, 200)
 
-    def test_actors_200(self):
+    def test_get_actors_200(self):
         headers = {
             'Content-Type': 'application/json',
             'Authorization': "Bearer {}".format(executive_token)
@@ -74,9 +79,3 @@ class EndPointsTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['delete'], 21)
-
-
-
-# Make the tests conveniently executable
-if __name__ == "__main__":
-    unittest.main()
