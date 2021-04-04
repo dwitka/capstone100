@@ -22,7 +22,7 @@ def create_app(test_config=None):
                              'GET, PATCH, PUT, POST,DELETE, OPTIONS')
         return response
 
-    db_drop_and_create_all()
+    # db_drop_and_create_all()
 
     # Home
     @app.route('/')
