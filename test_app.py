@@ -19,7 +19,7 @@ class MainTestCase(unittest.TestCase):
         self.client = self.app.test_client
         #self.database_name = "casting"
         #self.database_path = "postgres://{}/{}".format('localhost:5432', self.database_name)
-        self.database_path = 'postgresql://postgres:postGres44@localhost:5432/casting'
+        self.database_path = 'postgresql://postgres:postGres44@localhost:5432/hollywood'
         setup_db(self.app, self.database_path)
 
         with self.app.app_context():
