@@ -35,9 +35,17 @@ def create_app(test_config=None):
     def get_movies(payload):
         try:
             movies = Movie.query.all()
+            movies_list = []
+            count = 0
+            if len(movies) != 0:
+                while count < len(movies):
+                    movies_list.append(movies[count].format())
+                    count = count + 1
+            else:
+                pass
             return jsonify({
                 'success': True,
-                'movies': [movie.format() for movie in movies]
+                'movies': movies_list
                 }), 200
         except Exception:
             abort(500)
