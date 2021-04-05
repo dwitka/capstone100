@@ -283,7 +283,7 @@ class MainTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 403)
         self.assertEqual(data['message'],
-                         'You are not allowed to access this resource')
+                         'Sorry, you dont have permissions.')
 
     def test_403_unauth_modify_movie(self):
         edit_movie = {
@@ -300,7 +300,7 @@ class MainTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 403)
         self.assertEqual(data['message'],
-                         'You are not allowed to access this resource')
+                         'Sorry, you dont have permissions.')
 
     def test_403_unauth_delete_movie(self):
         auth = {
@@ -311,7 +311,7 @@ class MainTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 403)
         self.assertEqual(data['message'],
-                         'You are not allowed to access this resource')
+                         'Sorry, you dont have permissions.')
 
     def test_403_unauth_add_movie(self):
         new_movie = {
@@ -327,4 +327,4 @@ class MainTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 403)
         self.assertEqual(data['message'],
-                         'You are not allowed to access this resource')
+                         'Sorry, you dont have permissions.')

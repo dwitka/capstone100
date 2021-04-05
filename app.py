@@ -183,8 +183,16 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 400,
-            "message": "Bad Request, please check your inputs"
+            "message": "Bad Request."
             }), 400
+
+    @app.errorhandler(401)
+    def resource_not_found(error):
+        return jsonify({
+            "success": False,
+            "error": 401,
+            "message": "Unauthorized"
+            }), 401
 
     @app.errorhandler(404)
     def not_found(error):
@@ -199,23 +207,23 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 500,
-            "message": "Sorry, there's a problem on our end."
+            "message": "Sorry, but there is a server error."
             }), 500
 
     @app.errorhandler(422)
     def unprocessable(error):
         return jsonify({
-            'success': False,
-            'error': 422,
-            'message': 'unprocessable. Check your input.'
-          }), 422
+            "success": False,
+            "error": 422,
+            "message": "Unprocessable"
+            }), 422
 
     @app.errorhandler(403)
     def forbidden(error):
         return jsonify({
             "success": False,
             "error": 403,
-            "message": "You are not allowed to access this resource",
+            "message": "Sorry, you dont have permissions.",
                 }), 403
 
     @app.errorhandler(AuthError)
