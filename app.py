@@ -54,22 +54,21 @@ def create_app(test_config=None):
     @requires_auth('post:movies')
     def add_movie(payload):
         data = request.get_json()
-        movie = Movie(
-            title=data['title'],
-            release_date=data['release_date']
-            )
-        if movie.title == '' or movie.release_date == '':
-            abort(422)
-
-        try:
-            movie.insert()
-
-            return jsonify({
-                'success': True,
-                'movie': movie.format()
-                }), 200
-        except Exception:
-            abort(500)
+        if data:
+            movie = Movie(
+                title=data['title'],
+                release_date=data['release_date']
+                )
+            try:
+                movie.insert()
+                return jsonify({
+                    'success': True,
+                    'movie': movie.format()
+                    }), 200
+            except Exception:
+                abort(500)
+        else:
+            abort(404)
 
     @app.route('/movies/<int:id>', methods=['GET', 'PATCH'])
     @requires_auth('patch:movies')

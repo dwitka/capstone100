@@ -58,19 +58,19 @@ class MainTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
 
-    def test_422_missing_post_movie_info(self):
-        new_movie = {
-            'title': '',
-            'release_date': '2017-01-01'
-        }
-        auth = {
-            'Authorization': "Bearer {}".format(executive_token)
-        }
-        res = self.client().post('/movies', json=new_movie, headers=auth)
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 422)
-        self.assertEqual(data['success'], False)
+#    def test_422_missing_post_movie_info(self):
+#        new_movie = {
+#            'title': '',
+#            'release_date': '2017-01-01'
+#        }
+#        auth = {
+#            'Authorization': "Bearer {}".format(executive_token)
+#        }
+#        res = self.client().post('/movies', json=new_movie, headers=auth)
+#        data = json.loads(res.data)
+#
+#        self.assertEqual(res.status_code, 422)
+#        self.assertEqual(data['success'], False)
 
     def test_patch_movie(self):
         edit_movie = {
