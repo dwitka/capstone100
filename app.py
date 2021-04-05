@@ -149,39 +149,36 @@ def create_app(test_config=None):
         except Exception:
             abort(500)
 
-    @app.route('/actors/<int:id>', methods=['GET', 'PATCH'])
+    @app.route('/actors/<int:actor_id>', methods=['GET', 'PATCH'])
     @requires_auth('patch:actors')
-    def update_actor(payload, id):
-        new_info = request.get_json()
-        actor = Actor.query.filter(Actor.id == id).one_or_none()
+    def update_actor(payload, actor_id):
+        actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
+        data = request.get_json()
         if actor:
-            actor.name = (new_info['name'] if new_info['name']
-                          else Actor.name)
-            actor.age = (new_info['age'] if new_info['age']
-                         else actor.age)
-            actor.gender = (new_info['gender'] if new_info['gender']
-                            else actor.gender)
-            try:
-                actor.update()
-                return jsonify({
-                    'success': True,
-                    'actor': [actor.format()]
-                    }), 200
-            except Exception:
-                abort(500)
+            actor.name = data['name']
+            actor.age = data['age']
+            actor.gender = data['gender']
         else:
             abort(404)
+        try:
+            actor.update()
+            return jsonify({
+                'success': True,
+                'actor': [actor.format()]
+                }), 200
+        except Exception:
+            abort(500)
 
-    @app.route('/actors/<int:id>', methods=['DELETE'])
+    @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     @requires_auth('delete:actors')
-    def delete_actor(payload, id):
-        actor = Actor.query.filter(Actor.id == id).one_or_none()
+    def delete_actor(payload, actor_id):
+        actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
         if actor:
             try:
                 actor.delete()
                 return jsonify({
                     'success': True,
-                    'delete': id
+                    'delete': actor_id
                     }), 200
             except Exception:
                 db.session.rollback()
