@@ -123,8 +123,7 @@ def create_app(test_config=None):
         actor = Actor(
             name=data['name'],
             age=data['age'],
-            gender=data['gender'],
-            movie_id=data['movie_id']
+            gender=data['gender']
             )
         if actor.name == '' or actor.age == '' or actor.gender == '':
             abort(422)
@@ -150,8 +149,6 @@ def create_app(test_config=None):
                          else actor.age)
             actor.gender = (new_info['gender'] if new_info['gender']
                             else actor.gender)
-            actor.movie_id = (new_info['movie_id'] if new_info['movie_id']
-                              else actor.movie_id)
             try:
                 actor.update()
                 return jsonify({

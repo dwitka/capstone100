@@ -25,7 +25,6 @@ class Movie(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
     release_date = Column(DateTime(), nullable=False)
-    actors = db.relationship('Actor', cascade="all, delete", backref='movies')
 
     def format(self):
         return{
@@ -52,15 +51,13 @@ class Actor(db.Model):
     name = Column(String, nullable=False)
     age = Column(Integer, nullable=False)
     gender = Column(String, nullable=False)
-    movie_id = Column(Integer, db.ForeignKey('movies.id'), nullable=False)
 
     def format(self):
         return{
             'id': self.id,
             'name': self.name,
             'age': self.age,
-            'gender': self.gender,
-            'movie_id': self.movie_id
+            'gender': self.gender
         }
 
     def insert(self):
