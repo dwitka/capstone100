@@ -26,8 +26,8 @@ def create_app(test_config=None):
 
     # Home
     @app.route('/')
-    def index():
-        return render_template('index.html')
+    def login():
+        return render_template('login.html')
 
     # Movie endpoints
     @app.route('/movies', methods=['GET'])

@@ -1,0 +1,43 @@
+<html>
+        <head>
+                <title>Actors Page</title>
+        </head>
+        <body>
+                <form method="post" action="/actors">
+                        <label for="actor name">Actor Name:</label><br>
+                        <input type="text" id="actor name" name="name"><br>
+                        <input type="submit" value="Enter Actor" />
+                </form>
+
+
+                <ul style="list-style-type:none; width:350px; font-size:24px;">
+                <li><h4><b>{{ list_header }}</b></h4></li>
+                {#loop through actors and render them in list#}
+                {% for actor in actors %}
+                <li>
+                        {{ actor.name }}
+                        <button style="float:right;" class="delete-button" data-id="{{ actor.id }}">&cross;</button>
+                </li>
+
+                {% endfor %}
+                </ul>
+                <script>
+                        const deleteBtns = document.querySelectorAll('.delete-button');
+                        for (let i = 0; i < deleteBtns.length; i++) {
+                            const btn = deleteBtns[i];
+                            btn.onclick = function(e) {
+                                const actorId = e.target.getAttribute("data-id");
+                                fetch('/actors/' + actorId + '/deleted', {
+                                    method: 'DELETE'
+                                })
+                                .then(function() {
+                                    const item = e.target.parentElement;
+                                    item.remove();
+				})
+                            }
+                        }
+                </script>
+        </body>
+</html>
+
+

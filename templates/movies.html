@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>Movies Page</title>
+	</head>
+	<body>
+		<form method="post" action="/movies">
+			<label for="movie title">Movie Title:</label><br>
+			<input type="text" id="movie title" name="title"><br>
+			<label for="release date">Release Date:</label><br>
+			<input type="text" id="release date" name="release_date">
+			<input type="submit" value="Enter Movie" />
+		</form>
+
+
+		<ul style="list-style-type:none; width:350px; font-size:24px;">
+        	<li><h4><b>{{ list_header }}</b></h4></li>
+		{#loop through movies and render them in list#}
+        	{% for movie in movies %}
+		<li>
+			{{ movie.title }}
+			<label>{{ movie.release_date }}</label>
+			<button style="float:right;" class="delete-button" data-id="{{ movie.id }}">&cross;</button>
+		</li>
+
+        	{% endfor %}
+    		</ul>
+		<script>
+			const deleteBtns = document.querySelectorAll('.delete-button');
+			for (let i = 0; i < deleteBtns.length; i++) {
+			    const btn = deleteBtns[i];
+        		    btn.onclick = function(e) {
+          			const movieId = e.target.getAttribute("data-id");
+          			fetch('/movies/' + movieId + '/deleted', {
+            			    method: 'DELETE'
+          			})
+          			.then(function() {
+            			    const item = e.target.parentElement;
+            			    item.remove();
+          			})
+        		    }
+      			}
+		</script>
+	</body>
+</html>
