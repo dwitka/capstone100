@@ -20,10 +20,6 @@ SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
---
--- Name: actors; Type: TABLE; Schema: public; Owner: lindachen
---
-
 CREATE TABLE public.actors (
     id integer NOT NULL,
     name character varying NOT NULL,
@@ -33,11 +29,7 @@ CREATE TABLE public.actors (
 );
 
 
-ALTER TABLE public.actors OWNER TO lindachen;
-
---
--- Name: actors_id_seq; Type: SEQUENCE; Schema: public; Owner: lindachen
---
+ALTER TABLE public.actors OWNER TO davidw;
 
 CREATE SEQUENCE public.actors_id_seq
     AS integer
@@ -48,18 +40,9 @@ CREATE SEQUENCE public.actors_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.actors_id_seq OWNER TO lindachen;
-
---
--- Name: actors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lindachen
---
+ALTER TABLE public.actors_id_seq OWNER TO davidw;
 
 ALTER SEQUENCE public.actors_id_seq OWNED BY public.actors.id;
-
-
---
--- Name: movies; Type: TABLE; Schema: public; Owner: lindachen
---
 
 CREATE TABLE public.movies (
     id integer NOT NULL,
@@ -68,11 +51,7 @@ CREATE TABLE public.movies (
 );
 
 
-ALTER TABLE public.movies OWNER TO lindachen;
-
---
--- Name: movies_id_seq; Type: SEQUENCE; Schema: public; Owner: lindachen
---
+ALTER TABLE public.movies OWNER TO davidw;
 
 CREATE SEQUENCE public.movies_id_seq
     AS integer
@@ -83,32 +62,13 @@ CREATE SEQUENCE public.movies_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.movies_id_seq OWNER TO lindachen;
-
---
--- Name: movies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lindachen
---
+ALTER TABLE public.movies_id_seq OWNER TO davidw;
 
 ALTER SEQUENCE public.movies_id_seq OWNED BY public.movies.id;
 
-
---
--- Name: actors id; Type: DEFAULT; Schema: public; Owner: lindachen
---
-
 ALTER TABLE ONLY public.actors ALTER COLUMN id SET DEFAULT nextval('public.actors_id_seq'::regclass);
 
-
---
--- Name: movies id; Type: DEFAULT; Schema: public; Owner: lindachen
---
-
 ALTER TABLE ONLY public.movies ALTER COLUMN id SET DEFAULT nextval('public.movies_id_seq'::regclass);
-
-
---
--- Data for Name: actors; Type: TABLE DATA; Schema: public; Owner: lindachen
---
 
 COPY public.actors (id, name, age, gender, movie_id) FROM stdin;
 2	Margot Robbie	30	F	2
@@ -117,11 +77,6 @@ COPY public.actors (id, name, age, gender, movie_id) FROM stdin;
 5	Johnny Depp	57	M	4
 \.
 
-
---
--- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: lindachen
---
-
 COPY public.movies (id, title, release_date) FROM stdin;
 2	Birds of Prey	2020-02-07 00:00:00
 3	The Great Gatsby	2013-03-10 00:00:00
@@ -129,40 +84,15 @@ COPY public.movies (id, title, release_date) FROM stdin;
 6	once upon a time in hollywood	2019-07-24 00:00:00
 \.
 
-
---
--- Name: actors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lindachen
---
-
 SELECT pg_catalog.setval('public.actors_id_seq', 10, true);
 
-
---
--- Name: movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lindachen
---
-
 SELECT pg_catalog.setval('public.movies_id_seq', 15, true);
-
-
---
--- Name: actors actors_pkey; Type: CONSTRAINT; Schema: public; Owner: lindachen
---
 
 ALTER TABLE ONLY public.actors
     ADD CONSTRAINT actors_pkey PRIMARY KEY (id);
 
-
---
--- Name: movies movies_pkey; Type: CONSTRAINT; Schema: public; Owner: lindachen
---
-
 ALTER TABLE ONLY public.movies
     ADD CONSTRAINT movies_pkey PRIMARY KEY (id);
-
-
---
--- Name: actors actors_movie_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: lindachen
---
 
 ALTER TABLE ONLY public.actors
     ADD CONSTRAINT actors_movie_id_fkey FOREIGN KEY (movie_id) REFERENCES public.movies(id);
