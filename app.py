@@ -89,16 +89,16 @@ def create_app(test_config=None):
         except Exception:
             abort(500)
 
-    @app.route('/movies/<int:id>', methods=['DELETE'])
+    @app.route('/movies/<int:movie_id>', methods=['DELETE'])
     @requires_auth('delete:movies')
-    def delete_movie(payload, id):
-        movie = Movie.query.filter(Movie.id == id).one_or_none()
+    def delete_movie(payload, movie_id):
+        movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
         if movie:
             try:
                 movie.delete()
                 return jsonify({
                     'success': True,
-                    'delete': id
+                    'delete': movie_id
                     }), 200
             except Exception:
                 db.session.rollback()

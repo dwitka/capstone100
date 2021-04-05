@@ -37,6 +37,8 @@ application endpoint
 4. data dump
 	LOG INTO POSTGRES
 	$ psql postgres postgres
+		OR
+	$ psql -h localhost -U postgres -p5432
 
 	RESET DATABASE
 	# drop database hollywood;
