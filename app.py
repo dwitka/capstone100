@@ -70,22 +70,18 @@ def create_app(test_config=None):
         else:
             abort(404)
 
-    @app.route('/movies/<int:id>', methods=['GET', 'PATCH'])
+    @app.route('/movies/<int:movie_id>', methods=['GET', 'PATCH'])
     @requires_auth('patch:movies')
-    def update_movie(payload, id):
-        new_info = request.get_json()
-        movie = Movie.query.filter(Movie.id == id).one_or_none()
+    def update_movie(payload, movie_id):
+        movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
+        data = request.get_json()
         if movie:
-            movie.title = (new_info['title'] if new_info['title']
-                           else movie.title)
-            movie.release_date = (new_info['release_date'] if
-                                  new_info['release_date'] else
-                                  movie.release_date)
+            movie.title = data['title']
+            movie.release_date = data['release_date']
         else:
             abort(404)
         try:
             movie.update()
-
             return jsonify({
                 'success': True,
                 'movie': [movie.format()]
