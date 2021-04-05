@@ -112,9 +112,17 @@ def create_app(test_config=None):
     def get_actors(payload):
         try:
             actors = Actor.query.all()
+            actors_list = []
+            count = 0
+            if len(actors) != 0:
+                while count < len(actors):
+                    actors_list.append(actors[count].format())
+                    count = count + 1
+            else:
+                pass
             return jsonify({
                             'success': True,
-                            'actors': [actor.format() for actor in actors]
+                            'actors': actors_list
                             }), 200
         except Exception:
             abort(500)
@@ -123,12 +131,13 @@ def create_app(test_config=None):
     @requires_auth('post:actors')
     def add_actor(payload):
         data = request.get_json()
-        actor = Actor(
-            name=data['name'],
-            age=data['age'],
-            gender=data['gender']
-            )
-        if actor.name == '' or actor.age == '' or actor.gender == '':
+        if data:
+            actor = Actor(
+                name=data['name'],
+                age=data['age'],
+                gender=data['gender']
+                )
+        else:
             abort(422)
         try:
             actor.insert()
