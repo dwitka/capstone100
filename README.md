@@ -38,6 +38,7 @@ ROLES AND PERMISSIONS:
                                 get:actors, patch:actors, post:actors, delete:actors
 
 
+
 URL:
 	https://capstone100.us.herokuapp.com
 
@@ -48,6 +49,8 @@ RUNNING TESTS LOCALLY:
 
 	1. run the environment
 		$ source env/Scripts/activate
+			OR
+		$ source env/bin/activate
 
 	2. install dependencies
 		$ pip install -r requirements.txt
@@ -59,7 +62,7 @@ RUNNING TESTS LOCALLY:
 		-login to all of these emails:	
 				john@assistant.com 	bob@director.com	david@executive.com
 		
-		password same for all:
+		password same for all: 
 
 		-retrieve jwt from URL after successful login
 
@@ -96,13 +99,6 @@ RUN THE DEVELOPMENT SERVER:
 	$ export FLASK_APP=app.py
 	$ export FLASK_ENV=development
 	$ flask run
-
-
-CHECKING ENDPOINTS LIVE:
-
--Instructions are provided in README for setting up
-authentication so reviewers can test endpoints at live
-application endpoint
 
 
 ENDPOINTS:
@@ -144,12 +140,14 @@ ENDPOINTS:
                 Make edits to actor variables.
                 Example Body: {
                                                 "name": "Kim Bassinger",
-                                                "age": "68",
-                                                "gender": "Female"
+                                                "age": "37",
+                                                "gender": "F",
+						"movie_id": 5
                                             }
 
         DELETE /actor/<int:actor_id>/delete
                 Deletes an actor from the database.
+
 
 FILE SYSTEM:
 	capstone100 (root directory)
