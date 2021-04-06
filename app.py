@@ -156,10 +156,14 @@ def create_app(test_config=None):
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
         data = request.get_json()
         if actor:
-            actor.name = data['name']
-            actor.age = data['age']
-            actor.gender = data['gender']
-            actor.movie_id = data['movie_id']
+            actor.name = (data['name'] if data['name']
+                          else Actor.name)
+            actor.age = (data['age'] if data['age']
+                         else actor.age)
+            actor.gender = (data['gender'] if data['gender']
+                            else actor.gender)
+            actor.movie_id = (data['movie_id'] if data['movie_id']
+                              else actor.movie_id)
         else:
             abort(404)
         try:

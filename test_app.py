@@ -178,10 +178,10 @@ class MainTestCase(unittest.TestCase):
 
     def test_patch_actor(self):
         edit_actor = {
-            'name': 'Joe Pesci', 
+            'name': '', 
             'age': 88,
-            'gender': 'M',
-            'movie_id': 2
+            'gender': '',
+            'movie_id': ''
         }
         auth = {
             'Authorization': "Bearer {}".format(director_token)
@@ -198,7 +198,7 @@ class MainTestCase(unittest.TestCase):
             'name': '',
             'age': 88,
             'gender': '',
-            'movie_id': 3
+            'movie_id': ''
         }
         auth = {
             'Authorization': "Bearer {}".format(director_token)

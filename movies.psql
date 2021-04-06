@@ -73,8 +73,8 @@ ALTER TABLE ONLY public.movies ALTER COLUMN id SET DEFAULT nextval('public.movie
 COPY public.actors (id, name, age, gender, movie_id) FROM stdin;
 2	Margot Robbie	30	F	2
 3	Leonardo DiCaprio	45	M	3
-4	Carey Mulligan	35	F	4
-5	Johnny Depp	57	M	5
+4	Carey Mulligan	35	F	3
+5	Johnny Depp	57	M	4
 \.
 
 COPY public.movies (id, title, release_date) FROM stdin;
@@ -96,6 +96,7 @@ ALTER TABLE ONLY public.movies
 
 ALTER TABLE ONLY public.actors
     ADD CONSTRAINT actors_movie_id_fkey FOREIGN KEY (movie_id) REFERENCES public.movies(id);
+
 
 --
 -- PostgreSQL database dump complete

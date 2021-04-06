@@ -1,9 +1,3 @@
--Project includes an informative README
-        ? Project dependencies, local development and hosting
-        instructions,
-        ? Detailed instructions for scripts to install any
-        project dependencies, and to run the development server.
-        ? Documentation of API behavior and RBAC controls
 
 INTRO:
 	This API is written as the final project in the Full 
@@ -55,22 +49,31 @@ RUNNING TESTS LOCALLY:
 	1. run the environment
 		$ source env/Scripts/activate
 
-	2. renew jwts
+	2. install dependencies
+		$ pip install -r requirements.txt
+
+	3. renew jwts
 		-copy and paste this URL inside the Url bar, hit ENTER 
 		https://capstone100.us.auth0.com/authorize?audience=Cap100&response_type=token&client_id=6yRMwnrOJGPCvl3jnkGzW25LopesQaPa&redirect_uri=https://capstone100.herokuapp.com/movies
 
-		-login with any of these three emails:	john@assistant.com 	bob@director.com	david@executive.com
-				with password:
+		-login to all of these emails:	
+				john@assistant.com 	bob@director.com	david@executive.com
+		
+		password same for all:
 
 		-retrieve jwt from URL after successful login
 
 		-paste the jwt into setup.sh into appropriate spot.
+
+		-delete history and cookies.
+
+		-do this for all three users.
 	
-	3. run setup.sh
+	4. run setup.sh
 		This sets up the environment variables, including the three jwts you just inserted.
 		$ source setup.sh
 
-	4. data dump
+	5. data dump
 		LOG INTO POSTGRES
 		$ psql database username
 			OR
@@ -84,10 +87,15 @@ RUNNING TESTS LOCALLY:
 		LOAD PSQL FILE INTO DATABASE
 		$ psql -h localhost -d my_database -U username -f movies.psql
 
-	5. run tests:
+	6. run tests:
 		$ python -m unittest test_app.py
 
 
+RUN THE DEVELOPMENT SERVER:
+
+	$ export FLASK_APP=app.py
+	$ export FLASK_ENV=development
+	$ flask run
 
 
 CHECKING ENDPOINTS LIVE:
@@ -97,7 +105,51 @@ authentication so reviewers can test endpoints at live
 application endpoint
 
 
+ENDPOINTS:
 
+	GET /movies
+		Retrieves list of movies.
+	
+	POST /movies
+		Allows you to create and add a new movie to the database.
+		Example Body: {
+						    "title": "Terminator",
+						    "release_date": "1984"
+						}
+	
+	PATCH /movies/<int:movie_id>
+		This endpoint lets you make changes movie variables such as title and release_date.
+		Example Body: {
+					        "title": "Terminator 2",
+					        "release_date": "1990"
+					    }
+	
+	DELETE /movie/<int:movie_id>/delete
+		Deletes a movie from the database.
+
+
+	GET /actors
+                Retrieves a list of actors.
+
+        POST /actors
+                Allows you to create and add a new actor to the database. 
+                Example Body: {
+                                                    "name": "Keanu Reeves",
+                                                    "age": 35,
+                                                    "gender": "M",
+						    "movie_id": 5
+                                                }
+        
+	PATCH /actor/<int:actor_id>
+                Make edits to actor variables.
+                Example Body: {
+                                                "name": "Kim Bassinger",
+                                                "age": "68",
+                                                "gender": "Female"
+                                            }
+
+        DELETE /actor/<int:actor_id>/delete
+                Deletes an actor from the database.
 
 FILE SYSTEM:
 	capstone100 (root directory)

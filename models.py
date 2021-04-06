@@ -25,6 +25,7 @@ class Movie(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
     release_date = Column(DateTime(), nullable=False)
+    actors = db.relationship('Actor', cascade="all, delete", backref='movies')
 
     def format(self):
         return{
