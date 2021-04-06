@@ -1,16 +1,13 @@
-import os
 from flask import Flask, render_template, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from sqlalchemy import exc
 from auth import AuthError, requires_auth
 from models import db_drop_and_create_all, setup_db, Movie, Actor
 
 
 def create_app(test_config=None):
-    # create and configure the app
+    '''create and configure the app'''
     app = Flask(__name__)
-    app.secret_key = 'SECRET'
     setup_db(app)
     CORS(app, resources={"/": {"origins": "*"}})
 
@@ -33,6 +30,7 @@ def create_app(test_config=None):
     @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies(payload):
+        '''Retrieves movies from database.'''
         try:
             movies = Movie.query.all()
             movies_list = []
@@ -53,6 +51,7 @@ def create_app(test_config=None):
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')
     def add_movie(payload):
+        '''Adds a movie to the database.'''
         data = request.get_json()
         if data:
             movie = Movie(
@@ -68,11 +67,12 @@ def create_app(test_config=None):
             except Exception:
                 abort(500)
         else:
-            abort(404)
+            abort(422)
 
     @app.route('/movies/<int:movie_id>', methods=['GET', 'PATCH'])
     @requires_auth('patch:movies')
     def update_movie(payload, movie_id):
+        '''Edits a movie from the database.'''
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
         data = request.get_json()
         if movie:
@@ -92,6 +92,7 @@ def create_app(test_config=None):
     @app.route('/movies/<int:movie_id>', methods=['DELETE'])
     @requires_auth('delete:movies')
     def delete_movie(payload, movie_id):
+        '''Deletes a movie from the database.'''
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
         if movie:
             try:
@@ -110,6 +111,7 @@ def create_app(test_config=None):
     @app.route('/actors', methods=['GET'])
     @requires_auth('get:actors')
     def get_actors(payload):
+        '''Retrieves a list of all actors from the database.'''
         try:
             actors = Actor.query.all()
             actors_list = []
@@ -130,6 +132,7 @@ def create_app(test_config=None):
     @app.route('/actors', methods=['POST'])
     @requires_auth('post:actors')
     def add_actor(payload):
+        '''Adds an actor to the database.'''
         data = request.get_json()
         if data:
             actor = Actor(
@@ -153,6 +156,7 @@ def create_app(test_config=None):
     @app.route('/actors/<int:actor_id>', methods=['GET', 'PATCH'])
     @requires_auth('patch:actors')
     def update_actor(payload, actor_id):
+        '''Edits an actor from the database.'''
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
         data = request.get_json()
         if actor:
@@ -178,6 +182,7 @@ def create_app(test_config=None):
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     @requires_auth('delete:actors')
     def delete_actor(payload, actor_id):
+        '''Deletes an actor from the database.'''
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
         if actor:
             try:
@@ -254,4 +259,4 @@ app = create_app()
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(debug=True)
