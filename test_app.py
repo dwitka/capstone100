@@ -10,6 +10,7 @@ from models import setup_db, db
 assistant_token = os.environ.get('ASSISTANT_TOKEN')
 director_token = os.environ.get('DIRECTOR_TOKEN')
 executive_token = os.environ.get('EXECUTIVE_TOKEN')
+database_path = os.environ.get('DATABASE_URL')
 
 
 class MainTestCase(unittest.TestCase):
@@ -17,7 +18,7 @@ class MainTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_path = 'postgresql://postgres:postGres44@localhost:5432/hollywood'
+        self.database_path = database_path
         setup_db(self.app, self.database_path)
 
         with self.app.app_context():

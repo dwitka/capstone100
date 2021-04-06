@@ -10,16 +10,6 @@ AUTH0_DOMAIN = 'capstone100.us.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'Cap100'
 
-# AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
-# ALGORITHMS = os.environ['ALGORITHMS']
-# API_AUDIENCE = os.environ['API_AUDIENCE']
-
-# AuthError Exception
-'''
-AuthError Exception
-A standardized way to communicate auth failure modes
-'''
-
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
