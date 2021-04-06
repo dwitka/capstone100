@@ -62,7 +62,7 @@ RUNNING TESTS LOCALLY:
 		-login to all of these emails:	
 				john@assistant.com 	bob@director.com	david@executive.com
 		
-		password same for all: 
+		password same for all: Capstone100 
 
 		-retrieve jwt from URL after successful login
 
@@ -151,37 +151,37 @@ ENDPOINTS:
 
 FILE SYSTEM:
 	capstone100 (root directory)
-		|
-		--app.py 
-		|  (this is your API)
-		|
-		--test_app.py 
-		|  (This file includes all your unittests)
-		|
-		--setup.sh 
-		|  (Loads the environment variables)
-		|
-		--movies.psql 
-		|  (Loads the database) 
-		|
-		--migrations/ 
-		|  (chronicles the data model versions)
-		|
-		--auth.py
-		|  (verifies authorization and permissions)
-		|
-		--requirements.txt
-		|  (houses all your dependencies)
-		|
-		--README.md 
-		|  (instructions/details on running app)
-		|
-		--models.py
-		|
-		--manage.py
-		|
-		--Procfile 
-		|  (this tells heroku to use the Gunicorn server)
-		|
-		--templates/login.html 
+		
+		app.py 
+		  (this is your API)
+		
+		test_app.py 
+		  (This file includes all your unittests)
+		
+		setup.sh 
+		  (Loads the environment variables)
+		
+		movies.psql 
+		  (Loads the database) 
+		
+		migrations/ 
+		  (chronicles the data model versions)
+		
+		auth.py
+		  (verifies authorization and permissions)
+		
+		requirements.txt
+		  (houses all your dependencies)
+		
+		README.md 
+		  (instructions/details on running app)
+		
+		models.py
+		
+		manage.py
+		
+		Procfile 
+		  (this tells heroku to use the Gunicorn server)
+		
+		templates/login.html 
 		   (this page takes the user to Auth0 for authentication)
