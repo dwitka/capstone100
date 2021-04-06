@@ -24,7 +24,8 @@ CREATE TABLE public.actors (
     id integer NOT NULL,
     name character varying NOT NULL,
     age integer NOT NULL,
-    gender character varying NOT NULL
+    gender character varying NOT NULL,
+    movie_id integer NOT NULL
 );
 
 
@@ -69,11 +70,11 @@ ALTER TABLE ONLY public.actors ALTER COLUMN id SET DEFAULT nextval('public.actor
 
 ALTER TABLE ONLY public.movies ALTER COLUMN id SET DEFAULT nextval('public.movies_id_seq'::regclass);
 
-COPY public.actors (id, name, age, gender) FROM stdin;
-2	Margot Robbie	30	F
-3	Leonardo DiCaprio	45	M
-4	Carey Mulligan	35	F
-5	Johnny Depp	57	M
+COPY public.actors (id, name, age, gender, movie_id) FROM stdin;
+2	Margot Robbie	30	F	2
+3	Leonardo DiCaprio	45	M	3
+4	Carey Mulligan	35	F	4
+5	Johnny Depp	57	M	5
 \.
 
 COPY public.movies (id, title, release_date) FROM stdin;
@@ -92,6 +93,9 @@ ALTER TABLE ONLY public.actors
 
 ALTER TABLE ONLY public.movies
     ADD CONSTRAINT movies_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY public.actors
+    ADD CONSTRAINT actors_movie_id_fkey FOREIGN KEY (movie_id) REFERENCES public.movies(id);
 
 --
 -- PostgreSQL database dump complete

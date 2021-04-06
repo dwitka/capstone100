@@ -51,13 +51,15 @@ class Actor(db.Model):
     name = Column(String, nullable=False)
     age = Column(Integer, nullable=False)
     gender = Column(String, nullable=False)
+    movie_id = Column(Integer, db.ForeignKey('movies.id'), nullable=False)
 
     def format(self):
         return{
             'id': self.id,
             'name': self.name,
             'age': self.age,
-            'gender': self.gender
+            'gender': self.gender,
+            'movie_id': self.movie_id
         }
 
     def insert(self):

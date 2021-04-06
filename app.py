@@ -135,7 +135,8 @@ def create_app(test_config=None):
             actor = Actor(
                 name=data['name'],
                 age=data['age'],
-                gender=data['gender']
+                gender=data['gender'],
+                movie_id=data['movie_id']
                 )
         else:
             abort(422)
@@ -158,6 +159,7 @@ def create_app(test_config=None):
             actor.name = data['name']
             actor.age = data['age']
             actor.gender = data['gender']
+            actor.movie_id = data['movie_id']
         else:
             abort(404)
         try:

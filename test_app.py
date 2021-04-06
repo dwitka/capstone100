@@ -147,7 +147,8 @@ class MainTestCase(unittest.TestCase):
         new_actor = {
             'name': 'Ronald Reagan',
             'age': 24,
-            'gender': 'M'
+            'gender': 'M',
+            'movie_id': 6
         }
         headers = {
             'Content-Type': 'application/json',
@@ -179,7 +180,8 @@ class MainTestCase(unittest.TestCase):
         edit_actor = {
             'name': 'Joe Pesci', 
             'age': 88,
-            'gender': 'M'
+            'gender': 'M',
+            'movie_id': 2
         }
         auth = {
             'Authorization': "Bearer {}".format(director_token)
@@ -195,7 +197,8 @@ class MainTestCase(unittest.TestCase):
         edit_actor = {
             'name': '',
             'age': 88,
-            'gender': ''
+            'gender': '',
+            'movie_id': 3
         }
         auth = {
             'Authorization': "Bearer {}".format(director_token)
@@ -272,7 +275,8 @@ class MainTestCase(unittest.TestCase):
         new_actor = {
             'name': 'Bob Dole',
             'age': 92,
-            'gender': 'M'
+            'gender': 'M',
+            'movie_id': 5
         }
         headers = {
             'Content-Type': 'application/json',
