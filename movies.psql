@@ -71,17 +71,17 @@ ALTER TABLE ONLY public.actors ALTER COLUMN id SET DEFAULT nextval('public.actor
 ALTER TABLE ONLY public.movies ALTER COLUMN id SET DEFAULT nextval('public.movies_id_seq'::regclass);
 
 COPY public.actors (id, name, age, gender, movie_id) FROM stdin;
-2	Margot Robbie	30	F	2
-3	Leonardo DiCaprio	45	M	3
-4	Carey Mulligan	35	F	3
+2	Nicole Kidman	53	F	2
+3	Ryan Reynolds	44	M	3
+4	Charlize Theron	45	F	3
 5	Johnny Depp	57	M	4
 \.
 
 COPY public.movies (id, title, release_date) FROM stdin;
-2	Birds of Prey	2020-02-07 00:00:00
-3	The Great Gatsby	2013-03-10 00:00:00
-4	Pirates of the Caribbean: On Stranger Tides	2011-05-20 00:00:00
-6	once upon a time in hollywood	2019-07-24 00:00:00
+2	Thor: Ragnarok	2017-10-10 00:00:00
+3	Captain Marvel	2019-02-27 00:00:00
+4	Wonder Woman	2017-06-02 00:00:00
+6	Interstellar	2014-10-26 00:00:00
 \.
 
 SELECT pg_catalog.setval('public.actors_id_seq', 10, true);
